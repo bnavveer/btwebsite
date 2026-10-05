@@ -69,7 +69,7 @@
       if (!w || !ctx) return;
       canvas.width = w; canvas.height = h;
       ctx.imageSmoothingEnabled = false;
-      resolveBox.insertBefore(canvas, img.nextSibling);
+      (img.closest("picture") || img).after(canvas);
       const small = document.createElement("canvas");
       const sctx = small.getContext("2d");
       const blocks = [72, 48, 32, 22, 15, 10, 6, 4];

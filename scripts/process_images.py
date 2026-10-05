@@ -63,6 +63,20 @@ def photo(name: str, out: str, width: int, crop=None) -> None:
     print(f"{out}: {img.size}, {(OUT / out).stat().st_size // 1024} KB")
 
 
+def webp_versions() -> None:
+    """WebP copies of every web image; pages serve them through <picture> with the original as fallback."""
+    for src in sorted(OUT.glob("*")):
+        if src.suffix not in (".png", ".jpg") or src.stem == "og-image":
+            continue
+        img = Image.open(src)
+        dest = src.with_suffix(".webp")
+        if src.suffix == ".png":
+            img.save(dest, "WEBP", lossless=True, method=6)
+        else:
+            img.save(dest, "WEBP", quality=80, method=6)
+        print(f"{dest.name}: {dest.stat().st_size // 1024} KB (was {src.stat().st_size // 1024} KB)")
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     # Hero: the red Cascadia and the lettered trailer, sky trimmed so the CSS sky takes over.
@@ -82,3 +96,4 @@ if __name__ == "__main__":
     photo("flyer.jpg", "flyer.jpg", 1545)
     photo("truck-photo-2022.jpg", "trailer-detail.jpg", 1100, crop=(1480, 470, 2560, 1330))
     photo("truck-photo-2022.jpg", "og-image.jpg", 1200, crop=(0, 240, 2560, 1584))
+    webp_versions()

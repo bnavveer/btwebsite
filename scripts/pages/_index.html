@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bay Transport Inc. | Asset-based trucking from Union City, CA</title>
-  <meta name="description" content="Family-owned, asset-based trucking since 2005. Full and partial truckloads, drop trailers and secure cargo storage from Union City and Stockton, California to all 48 contiguous states.">
+  <title>Bay Transport Inc. | Trucking Company in Union City, CA</title>
+  <meta name="description" content="Family-owned, asset-based trucking in Union City, CA since 2005. FTL, LTL, drop trailers and cargo storage from the Bay Area to all 48 states.">
   <meta name="theme-color" content="#204EC4">
   <link rel="canonical" href="https://baytransportinc.com/">
   <meta property="og:type" content="website">
@@ -12,6 +12,7 @@
   <meta property="og:description" content="Family-owned, asset-based trucking from Union City, California to all 48 contiguous states since 2005.">
   <meta property="og:image" content="https://baytransportinc.com/assets/img/og-image.jpg">
   <meta property="og:url" content="https://baytransportinc.com/">
+  <meta property="og:site_name" content="Bay Transport Inc.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +33,11 @@
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": "https://baytransportinc.com/#business",
     "name": "Bay Transport, Inc.",
+    "alternateName": "Bay Transport",
     "slogan": "Dock to dock around the clock",
+    "description": "Family-owned, asset-based trucking and logistics company in Union City, California, serving all 48 contiguous states since 2005.",
     "url": "https://baytransportinc.com/",
     "logo": "https://baytransportinc.com/assets/img/shield.svg",
     "image": "https://baytransportinc.com/assets/img/og-image.jpg",
@@ -49,13 +53,34 @@
       "postalCode": "94587",
       "addressCountry": "US"
     },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=34203+Zwissig+Way+Union+City+CA+94587",
     "openingHoursSpecification": [{
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
       "opens": "07:00",
       "closes": "17:00"
     }],
-    "areaServed": "Contiguous United States"
+    "areaServed": ["San Francisco Bay Area", "Northern California", "Contiguous United States"],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "USDOT", "value": "1361987"},
+      {"@type": "PropertyValue", "propertyID": "MC", "value": "521732"},
+      {"@type": "PropertyValue", "propertyID": "SCAC", "value": "BACV"},
+      {"@type": "PropertyValue", "propertyID": "CAGE", "value": "8JLA4"},
+      {"@type": "PropertyValue", "propertyID": "UEI", "value": "XPS9GHLDMDD5"}
+    ],
+    "naics": ["484110", "484121", "484220", "484230", "488510"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Trucking and logistics services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Full truckload (FTL) trucking", "url": "https://baytransportinc.com/full-truckload"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Less than truckload (LTL) shipping", "url": "https://baytransportinc.com/less-than-truckload"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Dedicated drop trailers", "url": "https://baytransportinc.com/drop-trailers"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Secure cargo storage", "url": "https://baytransportinc.com/cargo-storage"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "EDI and API integration"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Logistics planning and consulting"}}
+      ]
+    }
   }
   </script>
 </head>
@@ -84,9 +109,10 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <a href="index.html" aria-current="page">Home</a>
+        <a href="services.html">Services</a>
         <a href="capabilities.html">Capabilities</a>
         <a href="flyer.html">Flyer</a>
-        <a href="quote.html">Get a quote</a>
+        <a href="faq.html">FAQ</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <div class="site-header__actions">
@@ -144,7 +170,7 @@
       <div class="wrap rowhead">
         <div>
           <h2 id="services-title">What we haul and handle</h2>
-          <p>Every shipment is tracked from pickup to delivery, whatever the size.</p>
+          <p>Every shipment is tracked from pickup to delivery, whatever the size. <a class="link" href="services.html">All services</a></p>
         </div>
         <div class="scroller-nav" data-scroller-nav="services-track">
           <button class="scroller-btn" type="button" data-dir="-1" aria-label="Previous services">{{ARROW_L}}</button>
@@ -153,42 +179,42 @@
       </div>
 
       <ul class="track" id="services-track" tabindex="0" aria-label="Services, scroll sideways for more" data-scroller>
-        <li class="sign sign--blue">
+        <li><a class="sign sign--blue sign--link" href="full-truckload.html">
           {{ICON_FTL}}
           <h3>Full truckload</h3>
           <p>A whole trailer for your freight, going straight from your dock to the receiver's. No transfers, no extra handling.</p>
           <span class="sign__tab">FTL</span>
-        </li>
-        <li class="sign sign--black">
+        </a></li>
+        <li><a class="sign sign--black sign--link" href="less-than-truckload.html">
           {{ICON_LTL}}
           <h3>Less than truckload</h3>
           <p>For shipments that don't fill a trailer. You pay for the space your freight uses, not the whole truck.</p>
           <span class="sign__tab">LTL</span>
-        </li>
-        <li class="sign sign--orange">
+        </a></li>
+        <li><a class="sign sign--orange sign--link" href="drop-trailers.html">
           {{ICON_DROP}}
           <h3>Dedicated drop trailers</h3>
           <p>We leave an empty trailer at your facility. Your team loads it on your schedule, and we collect it when it's ready.</p>
           <span class="sign__tab">At your dock</span>
-        </li>
-        <li class="sign sign--white">
+        </a></li>
+        <li><a class="sign sign--white sign--link" href="cargo-storage.html">
           {{ICON_LOCK}}
           <h3>Secure cargo storage</h3>
           <p>Load a trailer, seal it, and we hold it in our gated, monitored yard. A lower-cost alternative to warehouse space.</p>
           <span class="sign__tab">Gated yard</span>
-        </li>
-        <li class="sign sign--blue">
+        </a></li>
+        <li><a class="sign sign--blue sign--link" href="capabilities.html#services">
           {{ICON_EDI}}
           <h3>EDI and API integration</h3>
           <p>Load tenders, tracking updates and invoices sent straight into your own systems. No phone tag or spreadsheets.</p>
           <span class="sign__tab">Your systems</span>
-        </li>
-        <li class="sign sign--black">
+        </a></li>
+        <li><a class="sign sign--black sign--link" href="quote.html">
           {{ICON_PLAN}}
           <h3>Logistics planning</h3>
           <p>Help planning lanes, schedules and capacity, from seasonal peaks to brand-new distribution routes.</p>
           <span class="sign__tab">Consulting</span>
-        </li>
+        </a></li>
       </ul>
       <div class="wrap"><div class="track-progress" data-scroller-progress="services-track"><span></span></div></div>
     </section>
@@ -365,11 +391,21 @@
           <p>34203 Zwissig Way<br>Union City, CA 94587</p>
           <p><a href="tel:+15104756100">(510) 475-6100</a><br><a {{WA_ATTRS}}>WhatsApp (510) 246-5453</a><br><a href="mailto:Dispatch@baytransportinc.com">Dispatch@baytransportinc.com</a></p>
         </div>
+        <nav aria-label="Services">
+          <p class="site-footer__label">Services</p>
+          <a href="full-truckload.html">Full truckload</a>
+          <a href="less-than-truckload.html">Less than truckload</a>
+          <a href="drop-trailers.html">Drop trailers</a>
+          <a href="cargo-storage.html">Cargo storage</a>
+          <a href="union-city.html">Union City yard</a>
+          <a href="stockton.html">Stockton facility</a>
+        </nav>
         <nav aria-label="Footer">
-          <p class="site-footer__label">Pages</p>
+          <p class="site-footer__label">Company</p>
           <a href="index.html">Home</a>
           <a href="capabilities.html">Capabilities</a>
           <a href="flyer.html">Flyer</a>
+          <a href="faq.html">FAQ</a>
           <a href="quote.html">Get a quote</a>
         </nav>
         <div>

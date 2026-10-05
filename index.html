@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bay Transport Inc. | Asset-based trucking from Union City, CA</title>
-  <meta name="description" content="Family-owned, asset-based trucking since 2005. Full and partial truckloads, drop trailers and secure cargo storage from Union City and Stockton, California to all 48 contiguous states.">
+  <title>Bay Transport Inc. | Trucking Company in Union City, CA</title>
+  <meta name="description" content="Family-owned, asset-based trucking in Union City, CA since 2005. FTL, LTL, drop trailers and cargo storage from the Bay Area to all 48 states.">
   <meta name="theme-color" content="#204EC4">
   <link rel="canonical" href="https://baytransportinc.com/">
   <meta property="og:type" content="website">
@@ -12,13 +12,14 @@
   <meta property="og:description" content="Family-owned, asset-based trucking from Union City, California to all 48 contiguous states since 2005.">
   <meta property="og:image" content="https://baytransportinc.com/assets/img/og-image.jpg">
   <meta property="og:url" content="https://baytransportinc.com/">
+  <meta property="og:site_name" content="Bay Transport Inc.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300..900;1,600..900&family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/hero-poster-dither.png">
-  <link rel="stylesheet" href="assets/css/site.css?v=f8d2dc3f03">
+  <link rel="preload" as="image" href="assets/img/hero-poster-dither.webp" type="image/webp">
+  <link rel="stylesheet" href="assets/css/site.css?v=7d0595afa2">
   <script>
     document.documentElement.classList.add("js");
     // The entrance plays once per session, never with reduced motion or a deep link.
@@ -32,8 +33,11 @@
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": "https://baytransportinc.com/#business",
     "name": "Bay Transport, Inc.",
+    "alternateName": "Bay Transport",
     "slogan": "Dock to dock around the clock",
+    "description": "Family-owned, asset-based trucking and logistics company in Union City, California, serving all 48 contiguous states since 2005.",
     "url": "https://baytransportinc.com/",
     "logo": "https://baytransportinc.com/assets/img/shield.svg",
     "image": "https://baytransportinc.com/assets/img/og-image.jpg",
@@ -49,13 +53,34 @@
       "postalCode": "94587",
       "addressCountry": "US"
     },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=34203+Zwissig+Way+Union+City+CA+94587",
     "openingHoursSpecification": [{
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
       "opens": "07:00",
       "closes": "17:00"
     }],
-    "areaServed": "Contiguous United States"
+    "areaServed": ["San Francisco Bay Area", "Northern California", "Contiguous United States"],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "USDOT", "value": "1361987"},
+      {"@type": "PropertyValue", "propertyID": "MC", "value": "521732"},
+      {"@type": "PropertyValue", "propertyID": "SCAC", "value": "BACV"},
+      {"@type": "PropertyValue", "propertyID": "CAGE", "value": "8JLA4"},
+      {"@type": "PropertyValue", "propertyID": "UEI", "value": "XPS9GHLDMDD5"}
+    ],
+    "naics": ["484110", "484121", "484220", "484230", "488510"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Trucking and logistics services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Full truckload (FTL) trucking", "url": "https://baytransportinc.com/full-truckload"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Less than truckload (LTL) shipping", "url": "https://baytransportinc.com/less-than-truckload"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Dedicated drop trailers", "url": "https://baytransportinc.com/drop-trailers"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Secure cargo storage", "url": "https://baytransportinc.com/cargo-storage"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "EDI and API integration"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Logistics planning and consulting"}}
+      ]
+    }
   }
   </script>
 </head>
@@ -84,9 +109,10 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <a href="index.html" aria-current="page">Home</a>
+        <a href="services.html">Services</a>
         <a href="capabilities.html">Capabilities</a>
         <a href="flyer.html">Flyer</a>
-        <a href="quote.html">Get a quote</a>
+        <a href="faq.html">FAQ</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <div class="site-header__actions">
@@ -105,9 +131,9 @@
     <!-- 1. Poster hero -->
     <section class="poster" aria-labelledby="hero-title">
       <div class="poster__art" data-resolve>
-        <img src="assets/img/hero-poster-dither.png" width="2160" height="1620" fetchpriority="high"
-             alt="A red Bay Transport tractor in the Union City yard under a big blue sky, beside a trailer lettered Bay Transport Inc., Dock to dock around the clock.">
-        <div class="poster__lens" data-lens data-src="assets/img/hero-photo.jpg" aria-hidden="true"></div>
+        <picture><source srcset="assets/img/hero-poster-dither.webp" type="image/webp"><img src="assets/img/hero-poster-dither.png" width="2160" height="1620" fetchpriority="high"
+             alt="A red Bay Transport tractor in the Union City yard under a big blue sky, beside a trailer lettered Bay Transport Inc., Dock to dock around the clock."></picture>
+        <div class="poster__lens" data-lens data-src="assets/img/hero-photo.webp" aria-hidden="true"></div>
       </div>
       <div class="poster__foot">
         <div class="poster__lead">
@@ -144,7 +170,7 @@
       <div class="wrap rowhead">
         <div>
           <h2 id="services-title">What we haul and handle</h2>
-          <p>Every shipment is tracked from pickup to delivery, whatever the size.</p>
+          <p>Every shipment is tracked from pickup to delivery, whatever the size. <a class="link" href="services.html">All services</a></p>
         </div>
         <div class="scroller-nav" data-scroller-nav="services-track">
           <button class="scroller-btn" type="button" data-dir="-1" aria-label="Previous services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
@@ -153,49 +179,49 @@
       </div>
 
       <ul class="track" id="services-track" tabindex="0" aria-label="Services, scroll sideways for more" data-scroller>
-        <li class="sign sign--blue">
+        <li><a class="sign sign--blue sign--link" href="full-truckload.html">
           <svg class="sign__icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="16" width="34" height="24"/><path d="M38 24h10l8 9v7H38z"/><path d="M44 24v9h12"/><circle cx="13" cy="46" r="4"/><circle cx="27" cy="46" r="4"/><circle cx="48" cy="46" r="4"/></svg>
           <h3>Full truckload</h3>
           <p>A whole trailer for your freight, going straight from your dock to the receiver's. No transfers, no extra handling.</p>
           <span class="sign__tab">FTL</span>
-        </li>
-        <li class="sign sign--black">
+        </a></li>
+        <li><a class="sign sign--black sign--link" href="less-than-truckload.html">
           <svg class="sign__icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="16" width="34" height="24"/><path d="M38 24h10l8 9v7H38z"/><rect x="9" y="29" width="9" height="11"/><rect x="19" y="24" width="9" height="16"/><circle cx="13" cy="46" r="4"/><circle cx="27" cy="46" r="4"/><circle cx="48" cy="46" r="4"/></svg>
           <h3>Less than truckload</h3>
           <p>For shipments that don't fill a trailer. You pay for the space your freight uses, not the whole truck.</p>
           <span class="sign__tab">LTL</span>
-        </li>
-        <li class="sign sign--orange">
+        </a></li>
+        <li><a class="sign sign--orange sign--link" href="drop-trailers.html">
           <svg class="sign__icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="14" width="44" height="24"/><path d="M42 38v10M38 48h8"/><circle cx="14" cy="44" r="4"/><circle cx="25" cy="44" r="4"/><path d="M50 22h8v32M2 54h56"/></svg>
           <h3>Dedicated drop trailers</h3>
           <p>We leave an empty trailer at your facility. Your team loads it on your schedule, and we collect it when it's ready.</p>
           <span class="sign__tab">At your dock</span>
-        </li>
-        <li class="sign sign--white">
+        </a></li>
+        <li><a class="sign sign--white sign--link" href="cargo-storage.html">
           <svg class="sign__icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="28" width="36" height="26" rx="2"/><path d="M21 28v-6a11 11 0 0 1 22 0v6"/><circle cx="32" cy="39" r="3.5"/><path d="M32 42.5V47"/></svg>
           <h3>Secure cargo storage</h3>
           <p>Load a trailer, seal it, and we hold it in our gated, monitored yard. A lower-cost alternative to warehouse space.</p>
           <span class="sign__tab">Gated yard</span>
-        </li>
-        <li class="sign sign--blue">
+        </a></li>
+        <li><a class="sign sign--blue sign--link" href="capabilities.html#services">
           <svg class="sign__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 22h44M42 12l10 10-10 10"/><path d="M56 42H12M22 32 12 42l10 10"/></svg>
           <h3>EDI and API integration</h3>
           <p>Load tenders, tracking updates and invoices sent straight into your own systems. No phone tag or spreadsheets.</p>
           <span class="sign__tab">Your systems</span>
-        </li>
-        <li class="sign sign--black">
+        </a></li>
+        <li><a class="sign sign--black sign--link" href="quote.html">
           <svg class="sign__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54c8-2 10-12 18-14s12 6 20-2 4-18 10-22" stroke-dasharray="5 5"/><circle cx="8" cy="54" r="4"/><path d="M56 6a7 7 0 0 1 7 7c0 6-7 12-7 12s-7-6-7-12a7 7 0 0 1 7-7z"/><circle cx="56" cy="13" r="2"/></svg>
           <h3>Logistics planning</h3>
           <p>Help planning lanes, schedules and capacity, from seasonal peaks to brand-new distribution routes.</p>
           <span class="sign__tab">Consulting</span>
-        </li>
+        </a></li>
       </ul>
       <div class="wrap"><div class="track-progress" data-scroller-progress="services-track"><span></span></div></div>
     </section>
 
     <!-- 3. The statement over the lettered trailer -->
     <section class="statement" aria-labelledby="statement-title">
-      <img class="statement__img" src="assets/img/band-trailer-dither.png" width="1560" height="903" loading="lazy" alt="">
+      <picture><source srcset="assets/img/band-trailer-dither.webp" type="image/webp"><img class="statement__img" src="assets/img/band-trailer-dither.png" width="1560" height="903" loading="lazy" alt=""></picture>
       <div class="statement__inner">
         <h2 class="statement__text" id="statement-title">We own the trucks. We train the drivers. We run the yards. The company you call is the company that moves your&nbsp;freight.</h2>
         <a class="btn btn--glass" href="capabilities.html">Read our capabilities</a>
@@ -339,8 +365,8 @@
         <figure class="print">
           <div class="print__frame">
             <div class="print__art">
-              <img src="assets/img/plate-palms-dither.png" width="1260" height="1260"
-                   alt="A white Bay Transport tractor and trailer parked under palm trees on a California street.">
+              <picture><source srcset="assets/img/plate-palms-dither.webp" type="image/webp"><img src="assets/img/plate-palms-dither.png" width="1260" height="1260"
+                   alt="A white Bay Transport tractor and trailer parked under palm trees on a California street."></picture>
               <span class="print__mark print__mark--tl" aria-hidden="true">Bay Transport Inc.</span>
               <span class="print__mark print__mark--tr" aria-hidden="true">baytransportinc.com</span>
               <span class="print__mark print__mark--bl" aria-hidden="true">Truck 216<br>California</span>
@@ -413,11 +439,21 @@
           <p>34203 Zwissig Way<br>Union City, CA 94587</p>
           <p><a href="tel:+15104756100">(510) 475-6100</a><br><a href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener">WhatsApp (510) 246-5453</a><br><a href="mailto:Dispatch@baytransportinc.com">Dispatch@baytransportinc.com</a></p>
         </div>
+        <nav aria-label="Services">
+          <p class="site-footer__label">Services</p>
+          <a href="full-truckload.html">Full truckload</a>
+          <a href="less-than-truckload.html">Less than truckload</a>
+          <a href="drop-trailers.html">Drop trailers</a>
+          <a href="cargo-storage.html">Cargo storage</a>
+          <a href="union-city.html">Union City yard</a>
+          <a href="stockton.html">Stockton facility</a>
+        </nav>
         <nav aria-label="Footer">
-          <p class="site-footer__label">Pages</p>
+          <p class="site-footer__label">Company</p>
           <a href="index.html">Home</a>
           <a href="capabilities.html">Capabilities</a>
           <a href="flyer.html">Flyer</a>
+          <a href="faq.html">FAQ</a>
           <a href="quote.html">Get a quote</a>
         </nav>
         <div>
@@ -445,6 +481,6 @@
   </div>
   <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
 
-  <script src="assets/js/site.js?v=59aba28f6f" defer></script>
+  <script src="assets/js/site.js?v=bf32df5be8" defer></script>
 </body>
 </html>

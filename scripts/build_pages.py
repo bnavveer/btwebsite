@@ -11,6 +11,7 @@ Run from anywhere:  python3 scripts/build_pages.py
 
 import hashlib
 import re
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -86,6 +87,22 @@ def mile_signs() -> str:
     return "\n        ".join(out)
 
 
+def webp_pictures(html: str) -> str:
+    """Wrap <img> tags in <picture> with a WebP source when a .webp twin exists."""
+    def wrap(m: re.Match) -> str:
+        tag, src = m.group(0), m.group(1)
+        webp = re.sub(r"\.(png|jpg)$", ".webp", src)
+        if webp == src or not (ROOT / webp).exists():
+            return tag
+        return f'<picture><source srcset="{webp}" type="image/webp">{tag}</picture>'
+    html = re.sub(r'<img\s[^>]*?src="(assets/img/[^"]+)"[^>]*>', wrap, html, flags=re.S)
+    # The hero lens and its preload can use WebP directly
+    html = html.replace('data-src="assets/img/hero-photo.jpg"', 'data-src="assets/img/hero-photo.webp"')
+    html = html.replace('<link rel="preload" as="image" href="assets/img/hero-poster-dither.png">',
+                        '<link rel="preload" as="image" href="assets/img/hero-poster-dither.webp" type="image/webp">')
+    return html
+
+
 def fill(template: str) -> str:
     parts = {
         "SHIELD": shield("BAY", "BT", "shield"),
@@ -98,6 +115,7 @@ def fill(template: str) -> str:
     html = re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: parts[m.group(1)], template)
     lane_map = MAP.read_text().rstrip()
     html = re.sub(r"<!-- map:start -->[\s\S]*?<!-- map:end -->", lambda m: f"<!-- map:start -->\n{lane_map}\n<!-- map:end -->", html)
+    html = webp_pictures(html)
     leftover = re.findall(r"\{\{[A-Z_]+\}\}", html)
     if leftover:
         raise SystemExit(f"unfilled placeholders: {leftover}")
@@ -105,6 +123,8 @@ def fill(template: str) -> str:
 
 
 # ---------- Subpages ----------
+
+SITE = "https://baytransportinc.com/"  # canonical home for every page, even while previewing elsewhere
 
 HEAD = """<!doctype html>
 <html lang="en">
@@ -114,21 +134,45 @@ HEAD = """<!doctype html>
   <title>{title}</title>
   <meta name="description" content="{description}">
   <meta name="theme-color" content="#204EC4">
+  <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Bay Transport Inc.">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
+  <meta property="og:url" content="{canonical}">
   <meta property="og:image" content="https://baytransportinc.com/assets/img/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300..900;1,600..900&family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
-  <script>document.documentElement.classList.add("js")</script>
+  <script>document.documentElement.classList.add("js")</script>{breadcrumb_ld}
 </head>
 <body class="{bodyclass}">
   <a class="skip-link" href="#main">Skip to content</a>
 
 """
+
+
+def page_url(filename: str) -> str:
+    slug = "" if filename == "index.html" else filename.removesuffix(".html")
+    return SITE + slug
+
+
+def breadcrumb_ld(meta: dict, filename: str) -> str:
+    """BreadcrumbList structured data: Home > optional parent > this page."""
+    if filename == "404.html":
+        return ""
+    items = [("Home", SITE)]
+    if "crumbs" in meta:
+        label, href = meta["crumbs"].split("|")
+        items.append((label, page_url(href)))
+    items.append((meta.get("name", meta["title"].split(" | ")[0]), page_url(filename)))
+    elements = ",".join(
+        f'{{"@type":"ListItem","position":{i},"name":"{n}","item":"{u}"}}' for i, (n, u) in enumerate(items, 1)
+    )
+    return f'\n  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{elements}]}}</script>'
 
 
 def between(text: str, start: str, end: str) -> str:
@@ -164,13 +208,34 @@ def main() -> None:
     header = header.replace(" site-header--over", "").replace(' aria-current="page"', "")
     tail = index[index.index('  <footer class="site-footer">'):]
 
+    built = []
     for src in sorted(PAGES.glob("[!_]*.html")):
         meta, body = parse(src)
         nav = header.replace(f'<a href="{meta["current"]}">', f'<a href="{meta["current"]}" aria-current="page">', 1)
         body = fill(body)
-        html = HEAD.format(**meta) + nav + '\n\n  <main id="main">\n' + body + "  </main>\n\n" + tail
+        head = HEAD.format(canonical=page_url(src.name), breadcrumb_ld=breadcrumb_ld(meta, src.name), **meta)
+        if src.name == "404.html":
+            # Served at any missing path, so resolve relative links from the site root
+            head = head.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <base href="/">')
+            head = head.replace('<link rel="canonical"', '<meta name="robots" content="noindex">\n  <link rel="canonical"')
+        html = head + nav + '\n\n  <main id="main">\n' + body + "  </main>\n\n" + tail
         (ROOT / src.name).write_text(bust(html))
+        built.append(src.name)
         print(f"built {src.name}")
+
+    # Sitemap and robots.txt for search engines
+    today = date.today().isoformat()
+    urls = ["index.html"] + [n for n in built if n != "404.html"]
+    priority = {"index.html": "1.0", "quote.html": "0.9", "services.html": "0.9"}
+    entries = "".join(
+        f"  <url><loc>{page_url(n)}</loc><lastmod>{today}</lastmod><priority>{priority.get(n, '0.7')}</priority></url>\n"
+        for n in urls
+    )
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + "</urlset>\n"
+    )
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n")
+    print(f"built sitemap.xml ({len(urls)} pages) and robots.txt")
 
 
 if __name__ == "__main__":
