@@ -83,6 +83,36 @@ MILES = [
 ]
 
 
+# Public FMCSA data (SAFER carrier snapshot, USDOT 1361987). Update these and rebuild when it changes.
+SAFETY = {
+    "as_of": "October 2026",
+    "verify": "https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=1361987",
+    "power_units": 15,
+    "drivers": 20,
+    "miles": "2.1 million",
+    "miles_year": 2024,
+    "crashes_24mo": 0,
+    "driver_insp": 70, "driver_oos": "0%", "driver_oos_nat": "6.67%",
+    "vehicle_insp": 44, "vehicle_oos": "18.2%", "vehicle_oos_nat": "22.26%",
+    "rating": "Satisfactory",
+}
+
+
+def safety_stats() -> str:
+    d = SAFETY
+    stats = [
+        (str(d["crashes_24mo"]), "crashes in the last 24 months", "Fatal, injury or tow-away"),
+        (d["driver_oos"], "driver out-of-service rate", f'National average {d["driver_oos_nat"]}, across {d["driver_insp"]} inspections'),
+        (d["vehicle_oos"], "vehicle out-of-service rate", f'National average {d["vehicle_oos_nat"]}, across {d["vehicle_insp"]} inspections'),
+        (d["rating"], "FMCSA safety rating", "The highest rating FMCSA gives"),
+    ]
+    items = "".join(
+        f'<div class="safety__stat"><dt><span class="safety__num{" safety__num--word" if n.isalpha() else ""}">{n}</span> {label}</dt><dd>{note}</dd></div>'
+        for n, label, note in stats
+    )
+    return f'<dl class="safety__stats">{items}</dl>'
+
+
 def mile_signs() -> str:
     out = []
     for city, state, route, miles in MILES:
@@ -120,6 +150,13 @@ def fill(template: str) -> str:
         "WA_ATTRS": WA_ATTRS,
         "WA_ICON": WA_ICON,
         "MILE_SIGNS": mile_signs(),
+        "SAFETY_STATS": safety_stats(),
+        "SAFETY_AS_OF": SAFETY["as_of"],
+        "SAFETY_VERIFY": SAFETY["verify"],
+        "FLEET_UNITS": str(SAFETY["power_units"]),
+        "FLEET_DRIVERS": str(SAFETY["drivers"]),
+        "FLEET_MILES": SAFETY["miles"],
+        "FLEET_MILES_YEAR": str(SAFETY["miles_year"]),
         **ICONS,
     }
     html = re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: parts[m.group(1)], template)

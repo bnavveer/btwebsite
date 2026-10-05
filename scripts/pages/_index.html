@@ -279,6 +279,19 @@
       </div>
     </section>
 
+    <!-- Safety record, from public FMCSA data -->
+    <section class="safety" id="safety" aria-labelledby="safety-title">
+      <div class="safety__inner">
+        <div class="safety__head">
+          <h2 id="safety-title">A safety record you can check</h2>
+          <p>{{FLEET_UNITS}} trucks and {{FLEET_DRIVERS}} drivers covered {{FLEET_MILES}} miles in {{FLEET_MILES_YEAR}}. Here's how the federal record looks.</p>
+          <a class="link link--light" href="{{SAFETY_VERIFY}}" target="_blank" rel="noopener">Verify on FMCSA</a>
+        </div>
+        {{SAFETY_STATS}}
+      </div>
+      <p class="safety__source">Source: FMCSA SAFER carrier snapshot for USDOT 1361987, as of {{SAFETY_AS_OF}}. Out-of-service rates cover the last 24 months.</p>
+    </section>
+
     <!-- 5. Coverage with distance signs -->
     <section class="sky" id="coverage" aria-labelledby="coverage-title">
       <div class="sky__inner">

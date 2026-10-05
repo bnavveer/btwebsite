@@ -1272,6 +1272,60 @@ h3, h4 {
   .js .milemarkers .milemarkers__list li.is-passed .post { opacity: 1; transform: none; }
 }
 
+/* ---------- Safety record ---------- */
+
+.safety { position: relative; background: var(--black); color: var(--white); padding: clamp(3.5rem, 7vw, 5.5rem) 0 2rem; }
+.safety__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 2.5rem;
+  align-items: end;
+  max-width: calc(var(--max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.safety__head { grid-column: 1 / 5; }
+.safety__head h2 { font-size: clamp(2rem, 1.3rem + 2.4vw, 3.2rem); margin-bottom: 1.1rem; }
+.safety__head p { color: #c9ced8; font-size: var(--t-small); max-width: 36ch; margin-bottom: 1.1rem; }
+.link--light { color: var(--orange); }
+.safety .safety__stats { grid-column: 5 / 13; }
+.safety__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.safety__stat { padding: 0 1.25rem; border-left: 1px solid #2a2d33; }
+.safety__stat:first-child { padding-left: 0; border-left: 0; }
+.safety__stat dt { font-size: var(--t-small); font-weight: 600; line-height: 1.3; }
+.safety__num {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 1.4rem + 2.6vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--orange);
+}
+.safety__num--word { font-size: clamp(1.45rem, 0.85rem + 1.35vw, 2.05rem); padding-top: 0.35em; }
+.safety__stat dd { margin-top: 0.4rem; font-size: var(--t-cap); color: #9aa3b2; }
+.safety__source {
+  max-width: calc(var(--max) + 2 * var(--gutter));
+  margin: 2.5rem auto 0;
+  padding: 1rem var(--gutter) 0;
+  border-top: 1px solid #1f2227;
+  font-size: 0.75rem;
+  color: #7d8594;
+}
+
+/* Safety and fleet on the capabilities page */
+.doc .safety__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.doc .safety__stat { padding: 1.1rem 1.2rem; border: 0; border-radius: 12px; background: var(--paper); }
+.doc .safety__num { color: var(--blue); font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.8rem); }
+.doc .safety__stat dd { color: var(--gravel); }
+.doc__note { margin-top: 1rem; font-size: var(--t-cap); color: var(--gravel); }
+.fleet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 1.5rem; }
+.fleet div { padding: 1rem 1.1rem; border-radius: 12px; background: var(--blue); color: var(--white); }
+.fleet dt { font-size: var(--t-cap); opacity: 0.8; }
+.fleet dd { font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem); font-weight: 800; letter-spacing: -0.02em; }
+
 /* ---------- Service, location, FAQ and 404 pages ---------- */
 
 .crumbs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; font-size: var(--t-cap); font-weight: 600; opacity: 0.85; }
@@ -1433,6 +1487,7 @@ h3, h4 {
   .exit-sign { position: relative; top: 0; }
   .quote-form, .quote-aside { grid-column: 1 / -1; }
   .svc__main, .svc__aside { grid-column: 1 / -1; }
+  .safety__head, .safety .safety__stats { grid-column: 1 / -1; }
   .svc__aside { position: static; }
   .site-footer__cols { grid-template-columns: 1fr 1fr; }
   .quote-aside { position: static; }
@@ -1480,6 +1535,9 @@ h3, h4 {
   .milemarkers__list--stack { display: grid !important; grid-template-columns: 1fr; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
   .milemarkers__list--stack li { background: none !important; padding: 0 !important; }
   .place-links { grid-template-columns: 1fr; }
+  .safety .safety__stats { grid-template-columns: 1fr 1fr; row-gap: 1.75rem; }
+  .safety__stat:nth-child(3) { padding-left: 0; border-left: 0; }
+  .doc .safety__stats, .fleet { grid-template-columns: 1fr; }
   .reasons, .milemarkers__list:not(.milemarkers__list--stack) {
     display: flex;
     gap: 14px;
@@ -1576,6 +1634,17 @@ h3, h4 {
   .page-cap .doc .ledger__num { font-size: 18pt; margin: 0; grid-column: auto; }
   .page-cap .doc .ledger__item > div { grid-column: auto; }
   .page-cap .ledger__meta { margin-top: 0.02in; font-size: 7.5pt !important; gap: 0 0.12in; }
+  .page-cap .fleet { gap: 0.06in; margin-top: 0.06in; }
+  .page-cap .fleet div { padding: 0.04in 0.07in; border-radius: 4px; }
+  .page-cap .fleet dt { font-size: 7pt !important; }
+  .page-cap .fleet dd { font-size: 10pt !important; color: #fff; }
+  .page-cap .doc .safety__stats { gap: 0.05in; }
+  .page-cap .doc .safety__stat { padding: 0.05in 0.08in; border-radius: 4px; }
+  .page-cap .doc .safety__num { font-size: 13pt; margin-bottom: 0.02in; }
+  .page-cap .doc .safety__stat dt { font-size: 7.6pt !important; }
+  .page-cap .doc .safety__stat dd { font-size: 7pt !important; margin-top: 0.01in; }
+  .page-cap .doc__note { display: block; margin-top: 0.04in; font-size: 7pt !important; }
+  .page-cap .doc__note .creds__verify { display: none; }
   .page-cap .codes { border-top: 0; }
   .page-cap .codes div { grid-template-columns: 0.55in 1fr; padding: 0.01in 0; border: 0; gap: 0.06in; }
   .page-cap .details { border-top: 0; margin: 0; }

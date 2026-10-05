@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300..900;1,600..900&family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster-dither.webp" type="image/webp">
-  <link rel="stylesheet" href="assets/css/site.css?v=dc164b1a71">
+  <link rel="stylesheet" href="assets/css/site.css?v=4d7943a13c">
   <script>
     document.documentElement.classList.add("js");
     // The entrance plays once per session, never with reduced motion or a deep link.
@@ -277,6 +277,19 @@
           <li><span class="post post--end" aria-hidden="true"><span>Mile</span>4</span><div><h4>Delivered</h4><p>Your freight arrives at the receiving dock, sealed and accounted for.</p></div></li>
         </ol>
       </div>
+    </section>
+
+    <!-- Safety record, from public FMCSA data -->
+    <section class="safety" id="safety" aria-labelledby="safety-title">
+      <div class="safety__inner">
+        <div class="safety__head">
+          <h2 id="safety-title">A safety record you can check</h2>
+          <p>15 trucks and 20 drivers covered 2.1 million miles in 2024. Here's how the federal record looks.</p>
+          <a class="link link--light" href="https://safer.fmcsa.dot.gov/query.asp?searchtype=ANY&query_type=queryCarrierSnapshot&query_param=USDOT&query_string=1361987" target="_blank" rel="noopener">Verify on FMCSA</a>
+        </div>
+        <dl class="safety__stats"><div class="safety__stat"><dt><span class="safety__num">0</span> crashes in the last 24 months</dt><dd>Fatal, injury or tow-away</dd></div><div class="safety__stat"><dt><span class="safety__num">0%</span> driver out-of-service rate</dt><dd>National average 6.67%, across 70 inspections</dd></div><div class="safety__stat"><dt><span class="safety__num">18.2%</span> vehicle out-of-service rate</dt><dd>National average 22.26%, across 44 inspections</dd></div><div class="safety__stat"><dt><span class="safety__num safety__num--word">Satisfactory</span> FMCSA safety rating</dt><dd>The highest rating FMCSA gives</dd></div></dl>
+      </div>
+      <p class="safety__source">Source: FMCSA SAFER carrier snapshot for USDOT 1361987, as of October 2026. Out-of-service rates cover the last 24 months.</p>
     </section>
 
     <!-- 5. Coverage with distance signs -->

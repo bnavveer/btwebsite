@@ -1,0 +1,8 @@
+{
+  "name": "bt-capabilities-pdf",
+  "private": true,
+  "type": "module",
+  "description": "Prints capabilities.html to assets/docs/bay-transport-capabilities-statement.pdf",
+  "scripts": { "build": "node make-pdf.mjs" },
+  "dependencies": { "puppeteer": "^24.0.0" }
+}

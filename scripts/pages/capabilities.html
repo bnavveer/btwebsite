@@ -1,6 +1,6 @@
 ---
 title: Capabilities and credentials | Bay Transport Inc.
-description: Bay Transport capabilities and carrier credentials: MC 521732, USDOT 1361987, SCAC BACV, CAGE 8JLA4, UEI, NAICS codes and past performance.
+description: Bay Transport capabilities and credentials: MC 521732, USDOT 1361987, SCAC BACV, CAGE 8JLA4, fleet size, FMCSA safety record and past performance.
 bodyclass: page-cap
 current: capabilities.html
 name: Capabilities
@@ -10,7 +10,7 @@ name: Capabilities
         <h1>Capabilities and credentials</h1>
         <p>Everything shippers, brokers and procurement teams usually ask for, in one place.</p>
         <div class="pagehead__actions">
-          <a class="btn btn--orange" href="assets/docs/capabilities-statement-2023.pdf" download>Download the PDF</a>
+          <a class="btn btn--orange" href="assets/docs/bay-transport-capabilities-statement.pdf" download>Download the PDF</a>
           <button class="btn btn--glass" type="button" data-print>Print this page</button>
         </div>
         {{LOGO_MARK}}
@@ -20,6 +20,7 @@ name: Capabilities
     <nav class="subnav" aria-label="On this page">
       <div class="subnav__inner">
         <a href="#credentials">Credentials</a>
+        <a href="#safety">Safety</a>
         <a href="#overview">Overview</a>
         <a href="#services">Services</a>
         <a href="#performance">Past performance</a>
@@ -63,6 +64,12 @@ name: Capabilities
           </div>
         </dl>
 
+        <dl class="fleet">
+          <div><dt>Trucks (power units)</dt><dd>{{FLEET_UNITS}}</dd></div>
+          <div><dt>Drivers</dt><dd>{{FLEET_DRIVERS}}</dd></div>
+          <div><dt>Miles in {{FLEET_MILES_YEAR}}</dt><dd>{{FLEET_MILES}}</dd></div>
+        </dl>
+
         <div class="certs">
           <h3>Business certifications</h3>
           <ul>
@@ -70,6 +77,14 @@ name: Capabilities
             <li>Self-certified small disadvantaged business</li>
             <li>Subcontinent Asian (Asian-Indian) American owned</li>
           </ul>
+        </div>
+      </section>
+
+      <section class="doc__section" id="safety" aria-labelledby="safety-cap-title">
+        <h2 id="safety-cap-title">Safety record</h2>
+        <div>
+          {{SAFETY_STATS}}
+          <p class="doc__note">Source: FMCSA SAFER carrier snapshot for USDOT 1361987, as of {{SAFETY_AS_OF}}. <a class="creds__verify" href="{{SAFETY_VERIFY}}" target="_blank" rel="noopener">Verify on FMCSA</a></p>
         </div>
       </section>
 
@@ -83,6 +98,7 @@ name: Capabilities
           </p>
           <ul class="ticks">
             <li>Over 20 years of industry experience</li>
+            <li>{{FLEET_UNITS}} trucks and {{FLEET_DRIVERS}} drivers, {{FLEET_MILES}} miles in {{FLEET_MILES_YEAR}}</li>
             <li>Asset-based 3PL: we own the trucks, trailers and yards</li>
             <li>100% tracking on every shipment, origin to destination</li>
             <li>Drop trailers reduce loading and unloading times</li>

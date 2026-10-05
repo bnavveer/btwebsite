@@ -86,6 +86,17 @@ python3 -m http.server 8000
 4. **Point the domain.** The preview runs at https://bt.quano.us. To move it to baytransportinc.com,
    add that domain to the `routes` list in `wrangler.jsonc` (or host `dist/` anywhere static).
 
+## Safety record and capabilities PDF
+
+The safety and fleet numbers (FMCSA SAFER, USDOT 1361987) live in one place: `SAFETY` in
+`scripts/build_pages.py`. They feed the home page safety band, the capabilities page and the FAQ. When
+FMCSA's numbers change, update that block, rebuild, and regenerate the downloadable PDF:
+
+```sh
+python3 scripts/build_pages.py
+(cd scripts/pdf && npm install && npm run build)   # writes assets/docs/bay-transport-capabilities-statement.pdf
+```
+
 ## Deploying
 
 The site is a Cloudflare Worker with static assets (`wrangler.jsonc`), live at **https://bt.quano.us**.

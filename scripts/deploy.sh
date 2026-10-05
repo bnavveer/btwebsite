@@ -38,6 +38,7 @@ cat > dist/_redirects <<'REDIRECTS'
 /capabilities-statement/ /capabilities 301
 /home / 301
 /contact-us /#contact 301
+/assets/docs/capabilities-statement-2023.pdf /assets/docs/bay-transport-capabilities-statement.pdf 301
 /services /services 200
 REDIRECTS
 sed -i '' '/^\/services \/services 200$/d' dist/_redirects
