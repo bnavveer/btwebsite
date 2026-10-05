@@ -1,0 +1,12 @@
+{
+  "name": "bt-map-builder",
+  "private": true,
+  "type": "module",
+  "description": "Builds the dotted lower-48 lane map and inlines it into index.html",
+  "scripts": { "build": "node build-map.mjs" },
+  "dependencies": {
+    "d3-geo": "^3.1.1",
+    "topojson-client": "^3.1.0",
+    "us-atlas": "^3.0.1"
+  }
+}
