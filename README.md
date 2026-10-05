@@ -85,8 +85,18 @@ python3 -m http.server 8000
 3. **Add more photos.** The old site had only two usable photos. Real shots of the yard, the fleet,
    drivers and the Stockton facility would make the site stronger. Put originals in `source/images`
    and add them to `scripts/process_images.py`.
-4. **Point the domain.** Host the folder on GitHub Pages, Netlify or Cloudflare Pages, then point
-   baytransportinc.com's DNS at it.
+4. **Point the domain.** The preview runs at https://bt.quano.us. To move it to baytransportinc.com,
+   add that domain to the `routes` list in `wrangler.jsonc` (or host `dist/` anywhere static).
+
+## Deploying
+
+The site is a Cloudflare Worker with static assets (`wrangler.jsonc`), live at **https://bt.quano.us**.
+
+```sh
+./scripts/deploy.sh   # copies the public files to dist/ and runs `wrangler deploy`
+```
+
+Only the four pages and `assets/` are published; `source/` and `scripts/` stay private to the repo.
 
 ## Rebuilding generated files
 
