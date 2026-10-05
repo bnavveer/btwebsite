@@ -82,6 +82,62 @@
   $$("[data-print]").forEach((b) => b.addEventListener("click", () => window.print()));
 
   /* ---------- Capabilities sub-navigation: mark the section in view ---------- */
+  /* ---------- Horizontal scrollers: arrows, progress bar, drag with the mouse ---------- */
+  $$("[data-scroller]").forEach((track) => {
+    const nav = $(`[data-scroller-nav="${track.id}"]`);
+    const bar = $(`[data-scroller-progress="${track.id}"] span`);
+    const buttons = nav ? $$("[data-dir]", nav) : [];
+    const step = () => {
+      const item = track.querySelector("li");
+      return item ? item.getBoundingClientRect().width + 16 : track.clientWidth * 0.8;
+    };
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const at = track.scrollLeft;
+      buttons.forEach((b) => {
+        b.disabled = Number(b.dataset.dir) < 0 ? at <= 2 : at >= max - 2;
+      });
+      if (bar) {
+        const visible = track.clientWidth / track.scrollWidth;
+        bar.style.width = `${Math.max(visible, 0.12) * 100}%`;
+        bar.style.transform = `translateX(${max > 0 ? (at / max) * ((1 / Math.max(visible, 0.12)) - 1) * 100 : 0}%)`;
+      }
+    };
+
+    buttons.forEach((b) => b.addEventListener("click", () => {
+      track.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: reduceMotion ? "auto" : "smooth" });
+    }));
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+
+    // Mouse drag (touch already scrolls natively)
+    let startX = 0, startLeft = 0, moved = false, down = false;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      down = true; moved = false;
+      startX = e.clientX; startLeft = track.scrollLeft;
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) { moved = true; track.classList.add("is-dragging"); }
+      if (moved) track.scrollLeft = startLeft - dx;
+    });
+    window.addEventListener("pointerup", () => {
+      if (!down) return;
+      down = false;
+      if (moved) {
+        track.classList.remove("is-dragging");
+        // Let snap settle on the nearest card
+        const s = step();
+        track.scrollTo({ left: Math.round(track.scrollLeft / s) * s, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    });
+    track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+  });
+
   const subLinks = $$(".subnav a[href^='#']");
   if ("IntersectionObserver" in window && subLinks.length) {
     const byId = new Map(subLinks.map((a) => [a.getAttribute("href").slice(1), a]));

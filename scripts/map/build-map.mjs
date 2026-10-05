@@ -1,14 +1,14 @@
-// Builds the dotted lower-48 map with lanes out of Union City and Stockton,
-// then inlines it into index.html between <!-- map:start --> and <!-- map:end -->.
+// Builds the dotted lower-48 map with lanes out of Union City and Stockton and writes it to
+// scripts/map/lane-map.svg. scripts/build_pages.py inlines it into index.html.
 //   cd scripts/map && npm install && npm run build
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { geoAlbers, geoContains } from "d3-geo";
 import { feature, merge } from "topojson-client";
 
 const require = createRequire(import.meta.url);
 const us = require("us-atlas/states-10m.json");
-const INDEX = new URL("../../index.html", import.meta.url);
+const OUT = new URL("./lane-map.svg", import.meta.url);
 
 const W = 960, H = 590, GAP = 9;
 const NOT_LOWER_48 = new Set(["02", "15", "60", "66", "69", "72", "78"]);
@@ -66,8 +66,5 @@ ${lanes.map((l) => `    <circle cx="${r(l.p[0])}" cy="${r(l.p[1])}" r="3.5"/>`).
   </g>
 </svg>`;
 
-const html = readFileSync(INDEX, "utf8");
-const out = html.replace(/<!-- map:start -->[\s\S]*?<!-- map:end -->/, `<!-- map:start -->\n${svg}\n<!-- map:end -->`);
-if (out === html && !html.includes(svg)) throw new Error("map markers not found in index.html");
-writeFileSync(INDEX, out);
-console.log(`map inlined: ${dots.split("M").length - 1} dots, ${lanes.length} lanes`);
+writeFileSync(OUT, svg + "\n");
+console.log(`map written: ${dots.split("M").length - 1} dots, ${lanes.length} lanes`);

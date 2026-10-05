@@ -13,7 +13,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300..900;1,600..900&family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
   <script>document.documentElement.classList.add("js")</script>
 </head>
@@ -22,20 +22,23 @@
 
   <header class="site-header" data-header>
     <div class="site-header__inner">
-      <a class="wordmark" href="index.html" aria-label="Bay Transport Inc. home">
-        <span class="wordmark__name">Bay Transport Inc.</span>
-        <span class="wordmark__tag">Dock to dock around the clock</span>
+      <a class="brand" href="index.html" aria-label="Bay Transport Inc. home">
+        <svg class="shield" viewBox="0 0 100 104" aria-hidden="true"><path d="M50 4C62 9 78 9 91 3C96 12 98 22 98 33C98 63 78 85 50 100C22 85 2 63 2 33C2 22 4 12 9 3C22 9 38 9 50 4Z" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/><path d="M50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22C91.28,61.02 74.08,79.94 50,92.84C25.92,79.94 8.72,61.02 8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28Z" fill="#204EC4"/><path d="M8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22Z" fill="#EE8820"/><text x="50" y="28" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="1.5" fill="#000">BAY</text><text x="50" y="76" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="39" letter-spacing="-1.5" fill="#fff">BT</text></svg>
+        <span class="brand__text">
+          <span class="brand__name">Bay Transport Inc.</span>
+          <span class="brand__tag">Dock to dock around the clock</span>
+        </span>
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <a href="index.html">Home</a>
-        <a href="index.html#services">Services</a>
         <a href="capabilities.html" aria-current="page">Capabilities</a>
         <a href="flyer.html">Flyer</a>
+        <a href="quote.html">Get a quote</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <div class="site-header__actions">
         <span class="status" data-open-status aria-live="polite">Hours 7 am to 5 pm</span>
-        <a class="header-wa" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg></a>
+        <a class="header-wa" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"><svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg></a>
         <a class="btn btn--orange btn--small" href="quote.html">Get a quote</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
           <span class="nav-toggle__bars" aria-hidden="true"></span>
@@ -54,6 +57,7 @@
           <a class="btn btn--orange" href="assets/docs/capabilities-statement-2023.pdf" download>Download the PDF</a>
           <button class="btn btn--glass" type="button" data-print>Print this page</button>
         </div>
+        <svg class="shield pagehead__shield" viewBox="0 0 100 104" aria-hidden="true"><path d="M50 4C62 9 78 9 91 3C96 12 98 22 98 33C98 63 78 85 50 100C22 85 2 63 2 33C2 22 4 12 9 3C22 9 38 9 50 4Z" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/><path d="M50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22C91.28,61.02 74.08,79.94 50,92.84C25.92,79.94 8.72,61.02 8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28Z" fill="#204EC4"/><path d="M8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22Z" fill="#EE8820"/><text x="50" y="28" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="1.5" fill="#000">BAY</text><text x="50" y="76" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="39" letter-spacing="-1.5" fill="#fff">BT</text></svg>
       </div>
     </section>
 
@@ -144,12 +148,14 @@
 
       <section class="doc__section" id="performance" aria-labelledby="perf-title">
         <h2 id="perf-title">Past performance</h2>
+        <p class="doc__lede">Reference contact details are listed in the downloadable PDF.</p>
         <div class="ledger">
           <article class="ledger__item">
             <p class="ledger__num">960</p>
             <div>
               <h3>Vander-Bend Manufacturing</h3>
               <p>960 full truckloads delivered to locations in California, Georgia and Kansas, December 2018 to September 2023. All shipments tracked with on-time pickup and delivery, no cargo damage and intact seals.</p>
+              <p class="ledger__meta"><span>Total contract revenue: $2,222,915.00</span><span>Reference: Operations Manager, Vander-Bend</span></p>
             </div>
           </article>
           <article class="ledger__item">
@@ -157,6 +163,7 @@
             <div>
               <h3>Aeronet Road Transport</h3>
               <p>Storage for 30 full truckloads of medical supplies, with pickup and delivery arranged, July 2020 to March 2023.</p>
+              <p class="ledger__meta"><span>Total contract revenue: $1,027,840.84</span><span>Reference: GM, Road Transport, Aeronet</span></p>
             </div>
           </article>
         </div>
@@ -209,7 +216,10 @@
           <p>MC 521732<br>USDOT 1361987<br>SCAC BACV</p>
         </div>
       </div>
-      <p class="site-footer__mark" aria-hidden="true">Bay Transport Inc.</p>
+      <div class="site-footer__sign">
+        <svg class="shield" viewBox="0 0 100 104" aria-hidden="true"><path d="M50 4C62 9 78 9 91 3C96 12 98 22 98 33C98 63 78 85 50 100C22 85 2 63 2 33C2 22 4 12 9 3C22 9 38 9 50 4Z" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/><path d="M50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22C91.28,61.02 74.08,79.94 50,92.84C25.92,79.94 8.72,61.02 8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28Z" fill="#204EC4"/><path d="M8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22Z" fill="#EE8820"/><text x="50" y="28" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="1.5" fill="#000">BAY</text><text x="50" y="76" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="39" letter-spacing="-1.5" fill="#fff">BT</text></svg>
+        <p class="site-footer__mark" aria-hidden="true">Bay Transport Inc.</p>
+      </div>
       <div class="site-footer__base">
         <span>Dock to dock around the clock</span>
         <span>&copy; <span data-year>2026</span> Bay Transport, Inc.</span>
@@ -217,11 +227,11 @@
     </div>
   </footer>
 
-  <a class="wa-float" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener" aria-label="Message Bay Transport on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg><span>WhatsApp us</span></a>
+  <a class="wa-float" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener" aria-label="Message Bay Transport on WhatsApp"><svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg><span>WhatsApp us</span></a>
 
   <div class="mobile-bar">
     <a href="tel:+15104756100">Call</a>
-    <a class="mobile-bar__wa" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg>WhatsApp</a>
+    <a class="mobile-bar__wa" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener"><svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg>WhatsApp</a>
     <a href="quote.html">Get a quote</a>
   </div>
   <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
