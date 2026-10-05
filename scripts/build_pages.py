@@ -9,6 +9,7 @@
 Run from anywhere:  python3 scripts/build_pages.py
 """
 
+import hashlib
 import re
 from pathlib import Path
 
@@ -141,12 +142,21 @@ def parse(path: Path) -> tuple[dict, str]:
     return fields, body.rstrip() + "\n"
 
 
+def bust(html: str) -> str:
+    """Append a content hash to the CSS and JS links so each deploy is fetched fresh."""
+    for rel in ("assets/css/site.css", "assets/js/site.js"):
+        digest = hashlib.sha1((ROOT / rel).read_bytes()).hexdigest()[:10]
+        html = re.sub(rf'{re.escape(rel)}(\?v=[0-9a-f]+)?"', f'{rel}?v={digest}"', html)
+    return html
+
+
 def main() -> None:
     # Chunkier variant for the pixel entrance, so the band label survives the coarse grid.
     pixel = shield("BAY", "BT", "shield", body_size=40, top_size=21).replace(' aria-hidden="true"', ' xmlns="http://www.w3.org/2000/svg"')
     (ROOT / "assets" / "img" / "shield-pixel.svg").write_text(pixel + "\n")
 
     index = fill((PAGES / "_index.html").read_text())
+    index = bust(index)
     (ROOT / "index.html").write_text(index)
     print("built index.html")
 
@@ -159,7 +169,7 @@ def main() -> None:
         nav = header.replace(f'<a href="{meta["current"]}">', f'<a href="{meta["current"]}" aria-current="page">', 1)
         body = fill(body)
         html = HEAD.format(**meta) + nav + '\n\n  <main id="main">\n' + body + "  </main>\n\n" + tail
-        (ROOT / src.name).write_text(html)
+        (ROOT / src.name).write_text(bust(html))
         print(f"built {src.name}")
 
 

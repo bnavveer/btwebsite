@@ -13,5 +13,9 @@ cat > dist/_headers <<'HEADERS'
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 /assets/*
   Cache-Control: public, max-age=604800
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
 HEADERS
 npx -y wrangler@latest deploy
