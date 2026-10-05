@@ -39,7 +39,7 @@
     "slogan": "Dock to dock around the clock",
     "description": "Family-owned, asset-based trucking and logistics company in Union City, California, serving all 48 contiguous states since 2005.",
     "url": "https://baytransportinc.com/",
-    "logo": "https://baytransportinc.com/assets/img/shield.svg",
+    "logo": "https://baytransportinc.com/assets/img/logo.png",
     "image": "https://baytransportinc.com/assets/img/og-image.jpg",
     "telephone": "+1-510-475-6100",
     "faxNumber": "+1-510-475-5990",
@@ -87,13 +87,10 @@
 <body class="page-home">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Entrance: the route shield assembles from pixels, then the page lifts away -->
+  <!-- Entrance: the Bay Transport logo assembles from pixels, then the page lifts away -->
   <div class="intro" data-intro aria-hidden="true">
     <canvas class="intro__canvas" data-intro-canvas></canvas>
-    <div class="intro__word">
-      <span class="intro__name">Bay Transport Inc.</span>
-      <span class="intro__tag">Dock to dock around the clock</span>
-    </div>
+    <img class="intro__logo" data-intro-logo src="assets/img/logo.svg" width="522" height="93" alt="">
     <div class="intro__tape"></div>
     <button class="intro__skip" type="button" data-intro-skip tabindex="-1">Skip intro</button>
   </div>
@@ -101,11 +98,7 @@
   <header class="site-header site-header--over" data-header>
     <div class="site-header__inner">
       <a class="brand" href="index.html" aria-label="Bay Transport Inc. home">
-        {{SHIELD}}
-        <span class="brand__text">
-          <span class="brand__name">Bay Transport Inc.</span>
-          <span class="brand__tag">Dock to dock around the clock</span>
-        </span>
+        {{LOGO}}
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main">
         <a href="index.html" aria-current="page">Home</a>
@@ -414,11 +407,10 @@
         </div>
       </div>
       <div class="site-footer__sign">
-        {{SHIELD}}
-        <p class="site-footer__mark" aria-hidden="true">Bay Transport Inc.</p>
+        {{LOGO_FOOTER}}
       </div>
       <div class="site-footer__base">
-        <span>Dock to dock around the clock</span>
+        <span>Family-owned since 2005 &middot; Union City, California</span>
         <span>&copy; <span data-year>2026</span> Bay Transport, Inc.</span>
       </div>
     </div>

@@ -94,11 +94,12 @@
     if (img.complete && img.naturalWidth) run(); else img.addEventListener("load", run, { once: true });
   }
 
-  /* ---------- Entrance: the route shield assembles from pixel squares ---------- */
+  /* ---------- Entrance: the original logo assembles from pixel squares ---------- */
   const intro = $("[data-intro]");
   const root = document.documentElement;
   if (intro && root.classList.contains("intro-on")) {
     const canvas = $("[data-intro-canvas]", intro);
+    const sharp = $("[data-intro-logo]", intro);
     const ctx = canvas.getContext("2d");
     const timers = [];
     let finished = false, raf = 0;
@@ -123,58 +124,60 @@
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.scale(dpr, dpr);
 
-    const shieldImg = new Image();
-    shieldImg.onload = () => {
-      // Sample the shield on a coarse grid; each cell becomes one flying square.
-      const COLS = 44, ROWS = 46, S = 8;
+    const logo = new Image();
+    logo.onload = () => {
+      // Lay the logo out exactly where the sharp copy sits, then sample it on a grid.
+      const box = sharp.getBoundingClientRect();
+      const COLS = Math.round(Math.min(150, Math.max(90, box.width / 4.2)));
+      const cell = box.width / COLS;
+      const ROWS = Math.round(box.height / cell);
       const off = document.createElement("canvas");
-      off.width = COLS * S; off.height = ROWS * S;
+      off.width = COLS * 4; off.height = ROWS * 4;
       const octx = off.getContext("2d");
-      octx.drawImage(shieldImg, 0, 0, off.width, off.height);
+      octx.drawImage(logo, 0, 0, off.width, off.height);
       const data = octx.getImageData(0, 0, off.width, off.height).data;
-      const size = Math.max(4, Math.floor(Math.min(H * 0.38, 320) / ROWS));
-      const ox = (W - COLS * size) / 2, oy = H / 2 - ROWS * size * 0.62;
       const cells = [];
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
-          const i = ((r * S + S / 2) * off.width + (c * S + S / 2)) * 4;
-          if (data[i + 3] < 128) continue;
+          const i = ((r * 4 + 2) * off.width + (c * 4 + 2)) * 4;
+          if (data[i + 3] < 120) continue;
           const angle = Math.random() * Math.PI * 2;
-          const dist = Math.max(W, H) * (0.45 + Math.random() * 0.4);
+          const dist = Math.max(W, H) * (0.4 + Math.random() * 0.45);
           cells.push({
-            x: ox + c * size, y: oy + r * size,
+            x: box.left + c * cell, y: box.top + r * cell,
             sx: W / 2 + Math.cos(angle) * dist, sy: H / 2 + Math.sin(angle) * dist,
             color: `rgb(${data[i]},${data[i + 1]},${data[i + 2]})`,
-            delay: Math.random() * 380 + r * 5,
+            delay: Math.random() * 420 + (c / COLS) * 260,
           });
         }
       }
-      const DUR = 720;
+      const DUR = 700;
       const ease = (t) => 1 - Math.pow(1 - t, 3);
       const t0 = performance.now();
       const draw = (now) => {
         const t = now - t0;
         ctx.clearRect(0, 0, W, H);
         let done = true;
-        for (const cell of cells) {
-          const k = Math.min(1, Math.max(0, (t - cell.delay) / DUR));
+        for (const p of cells) {
+          const k = Math.min(1, Math.max(0, (t - p.delay) / DUR));
           if (k < 1) done = false;
           const e = ease(k);
           ctx.globalAlpha = Math.min(1, k * 3);
-          ctx.fillStyle = cell.color;
-          const s = size * (0.35 + 0.65 * e) - 1;
-          ctx.fillRect(cell.sx + (cell.x - cell.sx) * e, cell.sy + (cell.y - cell.sy) * e, s, s);
+          ctx.fillStyle = p.color;
+          const s = Math.max(1, cell * (0.4 + 0.6 * e) - 0.6);
+          ctx.fillRect(p.sx + (p.x - p.sx) * e, p.sy + (p.y - p.sy) * e, s, s);
         }
         ctx.globalAlpha = 1;
         if (!done && !finished) raf = requestAnimationFrame(draw);
       };
       raf = requestAnimationFrame(draw);
     };
-    shieldImg.src = "assets/img/shield-pixel.svg";
+    logo.src = sharp.src;
 
-    timers.push(setTimeout(() => intro.classList.add("is-word"), 1000));
-    timers.push(setTimeout(() => intro.classList.add("is-tape"), 1650));
-    timers.push(setTimeout(() => finish(false), 2450));
+    // Pixels settle, then the crisp logo resolves in place, the reflector tape sweeps, and the page lifts.
+    timers.push(setTimeout(() => intro.classList.add("is-sharp"), 1300));
+    timers.push(setTimeout(() => intro.classList.add("is-tape"), 1750));
+    timers.push(setTimeout(() => finish(false), 2550));
     // Never trap anyone behind the intro
     timers.push(setTimeout(() => finish(true), 5000));
   } else {

@@ -17,21 +17,19 @@ It's a static site with no build step: plain HTML, CSS and JavaScript that any h
 | Capabilities statement as a PDF only | Printable HTML version plus the original PDF |
 | Not built for phones | Responsive, with a sticky Call / Get a quote bar on mobile |
 
-## Brand system: the American road
+## Brand
 
-- **Mark:** an Interstate-style route shield in Bay Blue (`#204EC4`) and Clock Orange (`#EE8820`),
-  "BAY" in the band and "BT" in the body. It's in the header, footer, favicon and page heads
-  (`assets/img/shield.svg` is the standalone file).
-- **Type:** Overpass, an open-source take on Highway Gothic (the US road-sign typeface), for display.
-  Its heavy italic matches the lettering painted on the trailers. Public Sans, the US government's
-  typeface, for reading.
+- **Logo:** the original Bay Transport logo (blue name between black rules, orange tagline), traced
+  from `source/images/logo.png` into crisp SVGs by `scripts/trace_logo.py`: `assets/img/logo.svg`
+  (colour) and `assets/img/logo-white.svg` (over photos and dark backgrounds). `logo.png` is kept for
+  search engines. The favicon is a small "BT" mark in the same style.
+- **Colours:** Bay Blue `#204EC4`, Clock Orange `#EE8820`, black rules, from the logo.
+- **Type:** Overpass (based on US highway-sign lettering) for headings, Public Sans for reading.
 - **Devices:** road-sign panels for services, mile markers for the steps of a load, highway distance
-  signs (approximate driving miles from Union City), an exit sign for the address, and red-and-white
-  trailer reflector tape.
-- **Photos:** dithered poster treatment; the hero photo "develops" from coarse pixels on load.
-- **Moments:** a once-per-session entrance where the shield assembles from pixel squares (skippable,
-  off for reduced motion), a cursor lens on the hero that reveals the full-colour photo, and a truck
-  that drives the mile markers as you scroll.
+  signs with real Interstate shields, an exit sign for the address, and red-and-white trailer tape.
+- **Moments:** a once-per-session entrance where the logo assembles from pixel squares and resolves
+  sharp (skippable, off for reduced motion), a cursor lens on the hero that reveals the full-colour
+  photo, and a truck that drives the mile markers as you scroll.
 
 ## Pages
 

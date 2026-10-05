@@ -211,29 +211,12 @@ h3, h4 {
   padding: 0 var(--gutter);
 }
 
-/* Logo lockup: route shield + trailer-style wordmark */
-.brand { display: inline-flex; align-items: center; gap: 0.7rem; flex-shrink: 0; text-decoration: none; }
-.brand .shield { width: 38px; height: auto; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15)); }
-.brand__text { display: grid; line-height: 1; }
-.brand__name {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
-  font-size: 1.32rem;
-  letter-spacing: -0.02em;
-  color: var(--blue);
-}
-.brand__tag {
-  margin-top: 4px;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #c76b0f;
-}
-.site-header--over:not(.is-solid):not(.menu-open) .brand__name { color: var(--white); }
-.site-header--over:not(.is-solid):not(.menu-open) .brand__tag { color: #ffc285; }
+/* The original Bay Transport logo: white over the hero, full colour on the solid header */
+.brand { display: inline-flex; align-items: center; flex-shrink: 0; text-decoration: none; position: relative; }
+.brand__logo { display: block; height: 44px; width: auto; transition: opacity 0.3s var(--ease); }
+.brand__logo--white { position: absolute; left: 0; top: 50%; transform: translateY(-50%); opacity: 0; }
+.site-header--over:not(.is-solid):not(.menu-open) .brand__logo--white { opacity: 1; }
+.site-header--over:not(.is-solid):not(.menu-open) .brand__logo--color { opacity: 0; }
 
 .site-nav { display: flex; gap: 2rem; margin-left: auto; }
 .site-nav a {
@@ -860,18 +843,8 @@ h3, h4 {
 .site-footer__cols a { text-decoration: none; color: #e6e9ef; }
 .site-footer__cols a:hover { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
 .site-footer__label { color: var(--white); font-weight: 600; margin-bottom: 0.9rem; }
-.site-footer__sign { display: flex; align-items: center; gap: clamp(0.75rem, 2vw, 1.75rem); margin: clamp(3rem, 7vw, 4.5rem) 0 1.25rem; }
-.site-footer__sign .shield { width: clamp(52px, 8vw, 120px); height: auto; flex-shrink: 0; }
-.site-footer__mark {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
-  font-size: min(8.6vw, 8.4rem);
-  letter-spacing: -0.035em;
-  line-height: 0.85;
-  white-space: nowrap;
-  color: var(--white);
-}
+.site-footer__sign { margin: clamp(3rem, 7vw, 4.5rem) 0 1.5rem; }
+.site-footer__logo { display: block; width: min(100%, 1000px); height: auto; }
 .site-footer__base {
   display: flex;
   justify-content: space-between;
@@ -905,16 +878,7 @@ h3, h4 {
 .pagehead h1 { font-size: clamp(2.6rem, 1.3rem + 4.6vw, 5.5rem); letter-spacing: -0.035em; max-width: 13ch; }
 .pagehead p { margin-top: 1.25rem; max-width: 44ch; font-size: var(--t-lead); opacity: 0.92; }
 .pagehead__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem; }
-.pagehead__shield {
-  position: absolute;
-  right: var(--gutter);
-  bottom: -14%;
-  width: clamp(160px, 24vw, 330px);
-  height: auto;
-  transform: rotate(8deg);
-  opacity: 0.95;
-  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.3));
-}
+.pagehead__logo { display: none; }
 
 .subnav {
   position: sticky;
@@ -1194,7 +1158,7 @@ h3, h4 {
 .quote-aside__status { color: var(--gravel); margin-bottom: 1rem; }
 .quote-aside__status.is-open { color: var(--ok); }
 
-/* ---------- Entrance ---------- */
+/* ---------- Entrance: the original logo assembles from pixels ---------- */
 
 .intro { display: none; }
 .intro-on body { overflow: hidden; }
@@ -1203,42 +1167,27 @@ h3, h4 {
   inset: 0;
   z-index: 500;
   display: block;
-  background: var(--blue);
-  color: var(--white);
-  isolation: isolate;
+  background: var(--white);
   transition: transform 0.85s cubic-bezier(0.75, 0, 0.2, 1);
 }
-.intro::after {
-  content: "";
+.intro__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.intro__logo {
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: var(--grain);
-  opacity: 0.22;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-.intro__canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
-.intro__word {
-  position: absolute;
-  left: 0; right: 0;
-  top: calc(50% + min(19vh, 150px));
-  display: grid;
-  justify-items: center;
-  gap: 0.6rem;
-  text-align: center;
+  left: 50%; top: 50%;
+  width: min(78vw, 760px);
+  height: auto;
+  transform: translate(-50%, -50%);
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  transition: opacity 0.45s ease;
 }
-.intro.is-word .intro__word { opacity: 1; transform: none; }
-.intro__name { font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: clamp(2.1rem, 1rem + 4vw, 4rem); letter-spacing: -0.035em; line-height: 0.95; }
-.intro__tag { font-family: var(--font-display); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: #ffc285; }
+.intro.is-sharp .intro__logo { opacity: 1; }
+.intro.is-sharp .intro__canvas { opacity: 0; transition: opacity 0.45s ease; }
 .intro__tape {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 14px;
   background: repeating-linear-gradient(90deg, var(--tape-red) 0 56px, var(--white) 56px 98px);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.55s cubic-bezier(0.6, 0, 0.2, 1);
@@ -1249,16 +1198,16 @@ h3, h4 {
   position: absolute;
   right: 20px; top: 20px;
   padding: 0.5rem 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--hair-strong);
   border-radius: 999px;
   background: transparent;
-  color: var(--white);
+  color: var(--black);
   font-size: var(--t-cap);
   font-weight: 600;
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.7;
 }
-.intro__skip:hover { opacity: 1; background: rgba(255, 255, 255, 0.12); }
+.intro__skip:hover { opacity: 1; background: var(--paper); }
 
 /* ---------- Hero lens: the real photo through the halftone ---------- */
 
@@ -1420,7 +1369,7 @@ h3, h4 {
 .lost { position: relative; min-height: calc(100vh - var(--header-h)); display: grid; place-items: center; background: var(--blue); color: var(--white); text-align: center; overflow: hidden; isolation: isolate; }
 .lost::after { content: ""; position: absolute; inset: 0; z-index: -1; background-image: var(--grain); opacity: 0.2; mix-blend-mode: overlay; }
 .lost__inner { display: grid; justify-items: center; gap: 1rem; padding: 4rem var(--gutter); }
-.lost .pagehead__shield { position: static; width: 120px; transform: rotate(-6deg); }
+.lost .pagehead__logo { display: block; width: min(80vw, 420px); height: auto; margin-bottom: 1rem; }
 .lost__code { font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.2em; opacity: 0.8; }
 .lost h1 { font-size: clamp(3rem, 2rem + 5vw, 6rem); font-style: italic; font-weight: 900; letter-spacing: -0.035em; }
 .lost p { max-width: 40ch; opacity: 0.92; }
@@ -1504,8 +1453,7 @@ h3, h4 {
 @media (max-width: 720px) {
   body { padding-bottom: 60px; }
   .site-header__actions .btn { display: none; }
-  .brand .shield { width: 32px; }
-  .brand__name { font-size: 1.12rem; }
+  .brand__logo { height: 34px; }
   /* Fill the screen above the bottom bar. JS locks --hero-h to a pixel height at load (and on
      rotation only), so Chrome's address bar hiding and showing never resizes the hero. */
   .poster {
@@ -1548,7 +1496,6 @@ h3, h4 {
   .details div, .review dl, .flyer-contact__list div { grid-template-columns: 1fr; gap: 2px; }
   .creds__row { grid-template-columns: 1fr; gap: 0.3rem; }
   .doc__cols, .svc-grid, .field-grid, .signs-grid { grid-template-columns: 1fr; }
-  .pagehead__shield { width: 120px; bottom: auto; top: 1.5rem; opacity: 0.25; }
   .quote-progress li { padding: 0.85rem 0.5rem; text-align: center; }
   .quote-progress li span { display: none; }
   .quote-progress li::before { content: counter(qstep); }
@@ -1605,7 +1552,7 @@ h3, h4 {
   .page-cap .pagehead__inner { padding: 0.18in 0.25in; display: flex; align-items: center; justify-content: space-between; gap: 0.2in; }
   .page-cap .pagehead h1 { font-size: 20pt; max-width: none; letter-spacing: -0.02em; }
   .page-cap .pagehead p { margin: 0; font-size: 8.5pt; max-width: 3.2in; }
-  .page-cap .pagehead__shield { position: static; width: 0.55in; transform: none; filter: none; order: -1; }
+  .page-cap .pagehead__logo { display: block; width: 2.3in; height: auto; order: 1; }
   .page-cap .doc { padding: 0.14in 0 0 !important; columns: 2; column-gap: 0.28in; max-width: none; }
   .page-cap .doc__section { display: block; padding: 0 0 0.1in; margin-bottom: 0.1in; border-bottom: 1px solid #ccc; break-inside: avoid; }
   .page-cap .doc__section > h2 { font-size: 12pt; margin-bottom: 0.05in; letter-spacing: 0; color: var(--blue); }

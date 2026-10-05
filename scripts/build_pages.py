@@ -1,7 +1,7 @@
 """Build every HTML page.
 
 1. scripts/pages/_index.html is the home page template. {{PLACEHOLDERS}} are filled with the
-   shared pieces defined below (route shield, WhatsApp links, pictograms, distance signs) and the
+   shared pieces defined below (logo, WhatsApp links, pictograms, distance signs) and the
    lane map from scripts/map/lane-map.svg, and the result is written to index.html.
 2. Every other scripts/pages/*.html file has a small front-matter block (title, description,
    bodyclass, current) followed by its <main> content. Each one gets index.html's header and footer.
@@ -32,14 +32,23 @@ SHIELD_BAND = "M8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,1
 
 
 def shield(top: str, body: str, cls: str = "shield", body_size: int = 39, top_size: int = 15) -> str:
+    """An Interstate route shield (red band, blue body), used on the highway distance signs."""
     return (
         f'<svg class="{cls}" viewBox="0 0 100 104" aria-hidden="true">'
         f'<path d="{SHIELD_OUTER}" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>'
-        f'<path d="{SHIELD_INNER}" fill="#204EC4"/><path d="{SHIELD_BAND}" fill="#EE8820"/>'
-        f'<text x="50" y="{20 + top_size * 0.55:.0f}" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="{top_size}" letter-spacing="1.5" fill="#000">{top}</text>'
+        f'<path d="{SHIELD_INNER}" fill="#003F87"/><path d="{SHIELD_BAND}" fill="#C8102E"/>'
+        f'<text x="50" y="{20 + top_size * 0.55:.0f}" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="{top_size}" letter-spacing="1.5" fill="#fff">{top}</text>'
         f'<text x="50" y="{50 + body_size * 0.66:.0f}" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="{body_size}" letter-spacing="-1.5" fill="#fff">{body}</text>'
         "</svg>"
     )
+
+
+# The original Bay Transport logo (traced from source/images/logo.png by scripts/trace_logo.py).
+# Two copies: white over the hero photo, full colour once the header turns solid.
+LOGO = (
+    '<img class="brand__logo brand__logo--white" src="assets/img/logo-white.svg" width="522" height="93" alt="">'
+    '<img class="brand__logo brand__logo--color" src="assets/img/logo.svg" width="522" height="93" alt="Bay Transport Inc.">'
+)
 
 
 def icon(paths: str) -> str:
@@ -105,8 +114,9 @@ def webp_pictures(html: str) -> str:
 
 def fill(template: str) -> str:
     parts = {
-        "SHIELD": shield("BAY", "BT", "shield"),
-        "SHIELD_BIG": shield("BAY", "BT", "shield pagehead__shield"),
+        "LOGO": LOGO,
+        "LOGO_FOOTER": '<img class="site-footer__logo" src="assets/img/logo-white.svg" width="522" height="93" alt="Bay Transport Inc. Dock to dock around the clock">',
+        "LOGO_MARK": '<img class="pagehead__logo" src="assets/img/logo-white.svg" width="522" height="93" alt="Bay Transport Inc.">',
         "WA_ATTRS": WA_ATTRS,
         "WA_ICON": WA_ICON,
         "MILE_SIGNS": mile_signs(),
@@ -195,10 +205,6 @@ def bust(html: str) -> str:
 
 
 def main() -> None:
-    # Chunkier variant for the pixel entrance, so the band label survives the coarse grid.
-    pixel = shield("BAY", "BT", "shield", body_size=40, top_size=21).replace(' aria-hidden="true"', ' xmlns="http://www.w3.org/2000/svg"')
-    (ROOT / "assets" / "img" / "shield-pixel.svg").write_text(pixel + "\n")
-
     index = fill((PAGES / "_index.html").read_text())
     index = bust(index)
     (ROOT / "index.html").write_text(index)

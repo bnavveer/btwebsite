@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 104" role="img" aria-label="Bay Transport route shield">
-  <path d="M50 4C62 9 78 9 91 3C96 12 98 22 98 33C98 63 78 85 50 100C22 85 2 63 2 33C2 22 4 12 9 3C22 9 38 9 50 4Z" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M50.0,10.72C60.32,15.02 74.08,15.02 85.26,9.86C89.56,17.6 91.28,26.2 91.28,35.66C91.28,61.46 74.08,80.38 50.0,93.28C25.92,80.38 8.72,61.46 8.72,35.66C8.72,26.2 10.44,17.6 14.74,9.86C25.92,15.02 39.68,15.02 50.0,10.72Z" fill="#204EC4"/>
-  <path d="M8.72,35.66C8.72,26.2 10.44,17.6 14.74,9.86C25.92,15.02 39.68,15.02 50.0,10.72C60.32,15.02 74.08,15.02 85.26,9.86C89.56,17.6 91.28,26.2 91.28,35.66Z" fill="#EE8820"/>
-  <text x="50" y="28" text-anchor="middle" font-family="Overpass, 'Arial Black', Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="1.5" fill="#000">BAY</text>
-  <text x="50" y="76" text-anchor="middle" font-family="Overpass, 'Arial Black', Arial, sans-serif" font-weight="800" font-size="39" letter-spacing="-1.5" fill="#fff">BT</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#fff"/><rect x="7" y="11" width="50" height="4.5" fill="#000"/><text x="32" y="42" text-anchor="middle" font-family="Lato, 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="0.5" fill="#204EC4">BT</text><rect x="7" y="46" width="50" height="4.5" fill="#000"/><rect x="14" y="54" width="36" height="3.5" rx="1.5" fill="#EE8820"/></svg>
