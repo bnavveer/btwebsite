@@ -40,10 +40,12 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
   }
 
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   /* ---------- Hero: the dithered photo "develops" from coarse pixels ---------- */
   const resolveBox = $("[data-resolve]");
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (resolveBox && !reduceMotion) {
+  function developHero() {
+    if (!resolveBox || reduceMotion) return;
     const img = resolveBox.querySelector("img");
     const canvas = document.createElement("canvas");
     canvas.setAttribute("aria-hidden", "true");
@@ -53,7 +55,7 @@
       if (!w || !ctx) return;
       canvas.width = w; canvas.height = h;
       ctx.imageSmoothingEnabled = false;
-      resolveBox.appendChild(canvas);
+      resolveBox.insertBefore(canvas, img.nextSibling);
       const small = document.createElement("canvas");
       const sctx = small.getContext("2d");
       const blocks = [72, 48, 32, 22, 15, 10, 6, 4];
@@ -76,6 +78,145 @@
       step();
     };
     if (img.complete && img.naturalWidth) run(); else img.addEventListener("load", run, { once: true });
+  }
+
+  /* ---------- Entrance: the route shield assembles from pixel squares ---------- */
+  const intro = $("[data-intro]");
+  const root = document.documentElement;
+  if (intro && root.classList.contains("intro-on")) {
+    const canvas = $("[data-intro-canvas]", intro);
+    const ctx = canvas.getContext("2d");
+    const timers = [];
+    let finished = false, raf = 0;
+
+    const finish = (immediate) => {
+      if (finished) return;
+      finished = true;
+      timers.forEach(clearTimeout);
+      try { sessionStorage.setItem("bt-intro", "1"); } catch { /* storage unavailable */ }
+      intro.classList.add("is-out");
+      developHero();
+      setTimeout(() => {
+        cancelAnimationFrame(raf);
+        root.classList.remove("intro-on");
+        intro.remove();
+      }, immediate ? 450 : 900);
+    };
+    ["click", "keydown", "wheel", "touchstart"].forEach((ev) => window.addEventListener(ev, () => finish(true), { once: true, passive: true }));
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const W = innerWidth, H = innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.scale(dpr, dpr);
+
+    const shieldImg = new Image();
+    shieldImg.onload = () => {
+      // Sample the shield on a coarse grid; each cell becomes one flying square.
+      const COLS = 44, ROWS = 46, S = 8;
+      const off = document.createElement("canvas");
+      off.width = COLS * S; off.height = ROWS * S;
+      const octx = off.getContext("2d");
+      octx.drawImage(shieldImg, 0, 0, off.width, off.height);
+      const data = octx.getImageData(0, 0, off.width, off.height).data;
+      const size = Math.max(4, Math.floor(Math.min(H * 0.38, 320) / ROWS));
+      const ox = (W - COLS * size) / 2, oy = H / 2 - ROWS * size * 0.62;
+      const cells = [];
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const i = ((r * S + S / 2) * off.width + (c * S + S / 2)) * 4;
+          if (data[i + 3] < 128) continue;
+          const angle = Math.random() * Math.PI * 2;
+          const dist = Math.max(W, H) * (0.45 + Math.random() * 0.4);
+          cells.push({
+            x: ox + c * size, y: oy + r * size,
+            sx: W / 2 + Math.cos(angle) * dist, sy: H / 2 + Math.sin(angle) * dist,
+            color: `rgb(${data[i]},${data[i + 1]},${data[i + 2]})`,
+            delay: Math.random() * 380 + r * 5,
+          });
+        }
+      }
+      const DUR = 720;
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      const t0 = performance.now();
+      const draw = (now) => {
+        const t = now - t0;
+        ctx.clearRect(0, 0, W, H);
+        let done = true;
+        for (const cell of cells) {
+          const k = Math.min(1, Math.max(0, (t - cell.delay) / DUR));
+          if (k < 1) done = false;
+          const e = ease(k);
+          ctx.globalAlpha = Math.min(1, k * 3);
+          ctx.fillStyle = cell.color;
+          const s = size * (0.35 + 0.65 * e) - 1;
+          ctx.fillRect(cell.sx + (cell.x - cell.sx) * e, cell.sy + (cell.y - cell.sy) * e, s, s);
+        }
+        ctx.globalAlpha = 1;
+        if (!done && !finished) raf = requestAnimationFrame(draw);
+      };
+      raf = requestAnimationFrame(draw);
+    };
+    shieldImg.src = "assets/img/shield-pixel.svg";
+
+    timers.push(setTimeout(() => intro.classList.add("is-word"), 1000));
+    timers.push(setTimeout(() => intro.classList.add("is-tape"), 1650));
+    timers.push(setTimeout(() => finish(false), 2450));
+    // Never trap anyone behind the intro
+    timers.push(setTimeout(() => finish(true), 5000));
+  } else {
+    developHero();
+  }
+
+  /* ---------- Hero lens: reveal the full-colour photo under the cursor ---------- */
+  const poster = $(".poster");
+  const lens = $("[data-lens]");
+  if (poster && lens && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const ring = document.createElement("div");
+    ring.className = "poster__ring";
+    poster.insertBefore(ring, $(".poster__foot", poster));
+    let loaded = false;
+    const setRadius = () => poster.style.setProperty("--lr", `${Math.round(Math.min(220, Math.max(130, innerWidth * 0.11)))}px`);
+    setRadius();
+    window.addEventListener("resize", setRadius);
+    poster.addEventListener("pointerenter", () => {
+      if (!loaded) { lens.style.backgroundImage = `url("${lens.dataset.src}")`; loaded = true; }
+    });
+    poster.addEventListener("pointermove", (e) => {
+      const r = poster.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      poster.style.setProperty("--lx", `${x}px`);
+      poster.style.setProperty("--ly", `${y}px`);
+      poster.style.setProperty("--lxp", `${x}px`);
+      poster.style.setProperty("--lyp", `${y}px`);
+      // Keep the lens off the text and buttons at the bottom
+      const overUI = e.target.closest(".poster__foot a, .poster__foot button, .poster__title");
+      poster.classList.toggle("is-lensing", !overUI);
+    });
+    poster.addEventListener("pointerleave", () => poster.classList.remove("is-lensing"));
+  }
+
+  /* ---------- Road: the truck drives the mile markers as you scroll ---------- */
+  const road = $("[data-road]");
+  if (road) {
+    const items = $$(".milemarkers__list li");
+    const truck = $(".road__truck", road);
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = road.getBoundingClientRect();
+      const vh = innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.55)));
+      road.style.setProperty("--p", p.toFixed(4));
+      const front = truck.getBoundingClientRect().right - 20;
+      items.forEach((li) => {
+        const post = li.querySelector(".post");
+        li.classList.toggle("is-passed", post.getBoundingClientRect().left <= front);
+      });
+    };
+    const onScrollRoad = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener("scroll", onScrollRoad, { passive: true });
+    window.addEventListener("resize", onScrollRoad);
+    update();
   }
 
   /* ---------- Print buttons ---------- */

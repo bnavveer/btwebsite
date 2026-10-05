@@ -29,12 +29,12 @@ SHIELD_INNER = "M50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,2
 SHIELD_BAND = "M8.72,35.22C8.72,25.76 10.44,17.16 14.74,9.42C25.92,14.58 39.68,14.58 50,10.28C60.32,14.58 74.08,14.58 85.26,9.42C89.56,17.16 91.28,25.76 91.28,35.22Z"
 
 
-def shield(top: str, body: str, cls: str = "shield", body_size: int = 39) -> str:
+def shield(top: str, body: str, cls: str = "shield", body_size: int = 39, top_size: int = 15) -> str:
     return (
         f'<svg class="{cls}" viewBox="0 0 100 104" aria-hidden="true">'
         f'<path d="{SHIELD_OUTER}" fill="#fff" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>'
         f'<path d="{SHIELD_INNER}" fill="#204EC4"/><path d="{SHIELD_BAND}" fill="#EE8820"/>'
-        f'<text x="50" y="28" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="15" letter-spacing="1.5" fill="#000">{top}</text>'
+        f'<text x="50" y="{20 + top_size * 0.55:.0f}" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="{top_size}" letter-spacing="1.5" fill="#000">{top}</text>'
         f'<text x="50" y="{50 + body_size * 0.66:.0f}" text-anchor="middle" font-family="Overpass, Arial, sans-serif" font-weight="800" font-size="{body_size}" letter-spacing="-1.5" fill="#fff">{body}</text>'
         "</svg>"
     )
@@ -142,6 +142,10 @@ def parse(path: Path) -> tuple[dict, str]:
 
 
 def main() -> None:
+    # Chunkier variant for the pixel entrance, so the band label survives the coarse grid.
+    pixel = shield("BAY", "BT", "shield", body_size=40, top_size=21).replace(' aria-hidden="true"', ' xmlns="http://www.w3.org/2000/svg"')
+    (ROOT / "assets" / "img" / "shield-pixel.svg").write_text(pixel + "\n")
+
     index = fill((PAGES / "_index.html").read_text())
     (ROOT / "index.html").write_text(index)
     print("built index.html")

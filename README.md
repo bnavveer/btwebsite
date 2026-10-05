@@ -29,6 +29,9 @@ It's a static site with no build step: plain HTML, CSS and JavaScript that any h
   signs (approximate driving miles from Union City), an exit sign for the address, and red-and-white
   trailer reflector tape.
 - **Photos:** dithered poster treatment; the hero photo "develops" from coarse pixels on load.
+- **Moments:** a once-per-session entrance where the shield assembles from pixel squares (skippable,
+  off for reduced motion), a cursor lens on the hero that reveals the full-colour photo, and a truck
+  that drives the mile markers as you scroll.
 
 ## Pages
 

@@ -19,7 +19,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,300..900;1,600..900&family=Public+Sans:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/hero-poster-dither.png">
   <link rel="stylesheet" href="assets/css/site.css">
-  <script>document.documentElement.classList.add("js")</script>
+  <script>
+    document.documentElement.classList.add("js");
+    // The entrance plays once per session, never with reduced motion or a deep link.
+    try {
+      if (!sessionStorage.getItem("bt-intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches && !location.hash) {
+        document.documentElement.classList.add("intro-on");
+      }
+    } catch (e) {}
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -53,6 +61,17 @@
 </head>
 <body class="page-home">
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Entrance: the route shield assembles from pixels, then the page lifts away -->
+  <div class="intro" data-intro aria-hidden="true">
+    <canvas class="intro__canvas" data-intro-canvas></canvas>
+    <div class="intro__word">
+      <span class="intro__name">Bay Transport Inc.</span>
+      <span class="intro__tag">Dock to dock around the clock</span>
+    </div>
+    <div class="intro__tape"></div>
+    <button class="intro__skip" type="button" data-intro-skip tabindex="-1">Skip intro</button>
+  </div>
 
   <header class="site-header site-header--over" data-header>
     <div class="site-header__inner">
@@ -88,6 +107,7 @@
       <div class="poster__art" data-resolve>
         <img src="assets/img/hero-poster-dither.png" width="2160" height="1620" fetchpriority="high"
              alt="A red Bay Transport tractor in the Union City yard under a big blue sky, beside a trailer lettered Bay Transport Inc., Dock to dock around the clock.">
+        <div class="poster__lens" data-lens data-src="assets/img/hero-photo.jpg" aria-hidden="true"></div>
       </div>
       <div class="poster__foot">
         <div class="poster__lead">
@@ -217,6 +237,20 @@
 
       <div class="milemarkers" aria-labelledby="process-title">
         <h3 class="milemarkers__title" id="process-title">How a load moves with us</h3>
+        <div class="road" data-road aria-hidden="true">
+          <div class="road__lane"></div>
+          <svg class="road__truck" viewBox="0 0 120 46">
+            <rect x="2" y="4" width="78" height="30" rx="2" fill="#fff" stroke="#000" stroke-width="2.5"/>
+            <rect x="8" y="17" width="66" height="5" fill="#204EC4"/>
+            <rect x="8" y="23" width="66" height="2.5" fill="#EE8820"/>
+            <path d="M82 12h18l12 12v10H82z" fill="#204EC4" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M99 14l9 9h-9z" fill="#cfe0ff"/>
+            <circle cx="16" cy="38" r="5.5" fill="#111" stroke="#fff" stroke-width="2"/>
+            <circle cx="30" cy="38" r="5.5" fill="#111" stroke="#fff" stroke-width="2"/>
+            <circle cx="90" cy="38" r="5.5" fill="#111" stroke="#fff" stroke-width="2"/>
+            <circle cx="104" cy="38" r="5.5" fill="#111" stroke="#fff" stroke-width="2"/>
+          </svg>
+        </div>
         <ol class="milemarkers__list">
           <li><span class="post" aria-hidden="true"><span>Mile</span>1</span><div><h4>Request a quote</h4><p>Tell us the freight, the lane and the date. We reply with a price and a pickup plan.</p></div></li>
           <li><span class="post" aria-hidden="true"><span>Mile</span>2</span><div><h4>Pickup</h4><p>Our driver arrives at your dock, or collects a drop trailer your team has loaded.</p></div></li>

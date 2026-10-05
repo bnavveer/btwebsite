@@ -77,6 +77,8 @@ if __name__ == "__main__":
     # Hero, taller crop that keeps more sky for the poster layout.
     poster("truck-photo-2022.jpg", "hero-poster-dither.png",
            crop=(0, 0, 2560, 1920), dot_width=720, scale=3, levels=5, saturation=1.3)
+    # Full-colour hero photo, same framing as the dithered poster, revealed by the cursor lens.
+    photo("truck-photo-2022.jpg", "hero-photo.jpg", 2160)
     photo("flyer.jpg", "flyer.jpg", 1545)
     photo("truck-photo-2022.jpg", "trailer-detail.jpg", 1100, crop=(1480, 470, 2560, 1330))
     photo("truck-photo-2022.jpg", "og-image.jpg", 1200, crop=(0, 240, 2560, 1584))
