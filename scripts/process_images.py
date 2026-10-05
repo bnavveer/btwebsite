@@ -71,7 +71,12 @@ if __name__ == "__main__":
     # Plate: white truck under the palms.
     poster("instagram-photo.jpg", "plate-palms-dither.png",
            crop=(0, 0, 1440, 1440), dot_width=420, scale=3, levels=5, saturation=1.15)
-    photo("truck-photo-2022.jpg", "truck-red.jpg", 1600)
-    photo("instagram-photo.jpg", "truck-palms.jpg", 1200)
+    # Full-bleed band: the lettered trailer side.
+    poster("truck-photo-2022.jpg", "band-trailer-dither.png",
+           crop=(1180, 380, 2560, 1180), dot_width=520, scale=3, levels=5, saturation=1.2)
+    # Hero, taller crop that keeps more sky for the poster layout.
+    poster("truck-photo-2022.jpg", "hero-poster-dither.png",
+           crop=(0, 0, 2560, 1920), dot_width=720, scale=3, levels=5, saturation=1.3)
+    photo("flyer.jpg", "flyer.jpg", 1545)
     photo("truck-photo-2022.jpg", "trailer-detail.jpg", 1100, crop=(1480, 470, 2560, 1330))
     photo("truck-photo-2022.jpg", "og-image.jpg", 1200, crop=(0, 240, 2560, 1584))

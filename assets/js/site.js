@@ -16,6 +16,16 @@
     toastTimer = setTimeout(() => { toastEl.hidden = true; }, 2600);
   }
 
+  /* ---------- Header: solid once the hero scrolls away ---------- */
+  const header = $("[data-header]");
+  const onScroll = () => {
+    const scrolled = window.scrollY > 24;
+    document.body.classList.toggle("has-scrolled", scrolled);
+    if (header) header.classList.toggle("is-solid", window.scrollY > window.innerHeight * 0.6 - 72);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
   /* ---------- Mobile navigation ---------- */
   const navToggle = $("[data-nav-toggle]");
   const nav = $("#site-nav");
@@ -23,24 +33,66 @@
     const setOpen = (open) => {
       navToggle.setAttribute("aria-expanded", String(open));
       nav.classList.toggle("is-open", open);
+      header?.classList.toggle("menu-open", open);
     };
     navToggle.addEventListener("click", () => setOpen(navToggle.getAttribute("aria-expanded") !== "true"));
     nav.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
   }
 
-  /* ---------- Highlight the section in view ---------- */
-  const navLinks = $$(".site-nav a[href^='#']");
-  if ("IntersectionObserver" in window && navLinks.length) {
-    const byId = new Map(navLinks.map((a) => [a.getAttribute("href").slice(1), a]));
+  /* ---------- Hero: the dithered photo "develops" from coarse pixels ---------- */
+  const resolveBox = $("[data-resolve]");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (resolveBox && !reduceMotion) {
+    const img = resolveBox.querySelector("img");
+    const canvas = document.createElement("canvas");
+    canvas.setAttribute("aria-hidden", "true");
+    const ctx = canvas.getContext("2d");
+    const run = () => {
+      const w = img.naturalWidth, h = img.naturalHeight;
+      if (!w || !ctx) return;
+      canvas.width = w; canvas.height = h;
+      ctx.imageSmoothingEnabled = false;
+      resolveBox.appendChild(canvas);
+      const small = document.createElement("canvas");
+      const sctx = small.getContext("2d");
+      const blocks = [72, 48, 32, 22, 15, 10, 6, 4];
+      let i = 0;
+      const step = () => {
+        if (i >= blocks.length) {
+          canvas.style.opacity = "0";
+          setTimeout(() => canvas.remove(), 400);
+          return;
+        }
+        const b = blocks[i++];
+        small.width = Math.max(1, Math.round(w / b));
+        small.height = Math.max(1, Math.round(h / b));
+        sctx.imageSmoothingEnabled = true;
+        sctx.drawImage(img, 0, 0, small.width, small.height);
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(small, 0, 0, w, h);
+        setTimeout(step, i < 3 ? 110 : 85);
+      };
+      step();
+    };
+    if (img.complete && img.naturalWidth) run(); else img.addEventListener("load", run, { once: true });
+  }
+
+  /* ---------- Print buttons ---------- */
+  $$("[data-print]").forEach((b) => b.addEventListener("click", () => window.print()));
+
+  /* ---------- Capabilities sub-navigation: mark the section in view ---------- */
+  const subLinks = $$(".subnav a[href^='#']");
+  if ("IntersectionObserver" in window && subLinks.length) {
+    const byId = new Map(subLinks.map((a) => [a.getAttribute("href").slice(1), a]));
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const link = byId.get(entry.target.id);
         if (!link || !entry.isIntersecting) return;
-        navLinks.forEach((a) => a.removeAttribute("aria-current"));
+        subLinks.forEach((a) => a.removeAttribute("aria-current"));
         link.setAttribute("aria-current", "true");
       });
-    }, { rootMargin: "-45% 0px -50% 0px" });
+    }, { rootMargin: "-40% 0px -55% 0px" });
     byId.forEach((_, id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
   }
 
@@ -114,7 +166,7 @@
   $$("[data-copy]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const value = btn.dataset.copy;
-      const label = btn.closest(".cred-row")?.querySelector("dt")?.textContent || "Number";
+      const label = btn.closest(".creds__row")?.querySelector("dt")?.textContent || "Number";
       if (await copyText(value)) {
         btn.textContent = "Copied";
         btn.classList.add("is-copied");

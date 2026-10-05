@@ -1,0 +1,155 @@
+---
+title: Get a free quote | Bay Transport Inc.
+description: Request a trucking quote from Bay Transport. Full truckload, less than truckload, drop trailers and cargo storage from Union City, CA to all 48 states.
+bodyclass: page-quote
+current: quote.html
+---
+    <section class="pagehead">
+      <div class="pagehead__inner">
+        <h1>Get a free quote</h1>
+        <p>Four short steps. Dispatch replies by email with a price and a pickup plan.</p>
+      </div>
+    </section>
+
+    <section class="wrap quote-layout">
+      <form class="quote-form" id="quote-form" novalidate data-quote-form
+            data-endpoint="" data-mailto="Dispatch@baytransportinc.com">
+        <ol class="quote-progress" aria-label="Quote steps">
+          <li class="is-current" data-progress="1"><span>Service</span></li>
+          <li data-progress="2"><span>Route</span></li>
+          <li data-progress="3"><span>Freight</span></li>
+          <li data-progress="4"><span>Contact</span></li>
+        </ol>
+
+        <div class="quote-body">
+          <fieldset class="quote-step" data-step="1">
+            <legend>What do you need?</legend>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="service" value="Full truckload (FTL)" required><span><strong>Full truckload</strong>A whole trailer for your freight</span></label>
+              <label class="choice"><input type="radio" name="service" value="Less than truckload (LTL)"><span><strong>Less than truckload</strong>A few pallets or a partial load</span></label>
+              <label class="choice"><input type="radio" name="service" value="Drop trailer"><span><strong>Drop trailer</strong>A trailer left at your dock</span></label>
+              <label class="choice"><input type="radio" name="service" value="Cargo storage"><span><strong>Cargo storage</strong>Sealed trailer held at our yard</span></label>
+              <label class="choice"><input type="radio" name="service" value="Not sure yet"><span><strong>Not sure yet</strong>We'll help you pick</span></label>
+            </div>
+            <p class="field-error" data-error-for="service" hidden>Choose a service to continue.</p>
+          </fieldset>
+
+          <fieldset class="quote-step" data-step="2" hidden>
+            <legend>Where is it going?</legend>
+            <div class="field-grid">
+              <div class="field">
+                <label for="pickup-zip">Pickup ZIP code</label>
+                <input id="pickup-zip" name="pickup_zip" inputmode="numeric" autocomplete="postal-code" pattern="\d{5}" maxlength="5" required>
+                <p class="field-error" hidden>Enter a 5-digit ZIP code.</p>
+              </div>
+              <div class="field">
+                <label for="pickup-date">Pickup date</label>
+                <input id="pickup-date" name="pickup_date" type="date" required>
+                <p class="field-error" hidden>Choose a pickup date.</p>
+              </div>
+              <div class="field">
+                <label for="delivery-zip">Delivery ZIP code</label>
+                <input id="delivery-zip" name="delivery_zip" inputmode="numeric" pattern="\d{5}" maxlength="5" required>
+                <p class="field-error" hidden>Enter a 5-digit ZIP code.</p>
+              </div>
+              <div class="field">
+                <label for="delivery-date">Delivery date <span class="optional">(optional)</span></label>
+                <input id="delivery-date" name="delivery_date" type="date">
+                <p class="field-error" hidden>Delivery can't be before pickup.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="quote-step" data-step="3" hidden>
+            <legend>What are you shipping?</legend>
+            <div class="field-grid">
+              <div class="field field--wide">
+                <label for="commodity">Goods or commodity</label>
+                <input id="commodity" name="commodity" placeholder="For example: packaged food, machine parts, paper rolls" required>
+                <p class="field-error" hidden>Tell us what the freight is.</p>
+              </div>
+              <div class="field">
+                <label for="weight">Total weight in pounds <span class="optional">(optional)</span></label>
+                <input id="weight" name="weight_lbs" inputmode="numeric" placeholder="e.g. 38000">
+                <p class="field-error" hidden>Enter the weight as a number.</p>
+              </div>
+              <div class="field">
+                <label for="pallets">Pallet count <span class="optional">(optional)</span></label>
+                <input id="pallets" name="pallets" inputmode="numeric" placeholder="e.g. 22">
+                <p class="field-error" hidden>Enter the pallet count as a number.</p>
+              </div>
+              <fieldset class="field field--wide checks">
+                <legend>Anything special? <span class="optional">(optional)</span></legend>
+                <label><input type="checkbox" name="special" value="Hazmat"> Hazmat</label>
+                <label><input type="checkbox" name="special" value="Appointment required"> Delivery appointment</label>
+                <label><input type="checkbox" name="special" value="High-value freight"> High-value freight</label>
+                <label><input type="checkbox" name="special" value="Recurring shipment"> This is a recurring lane</label>
+              </fieldset>
+              <div class="field field--wide">
+                <label for="notes">Notes for dispatch <span class="optional">(optional)</span></label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Dock hours, endorsements, anything we should know"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="quote-step" data-step="4" hidden>
+            <legend>Where should we send the quote?</legend>
+            <div class="field-grid">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" autocomplete="name" required>
+                <p class="field-error" hidden>Enter your name.</p>
+              </div>
+              <div class="field">
+                <label for="company">Company <span class="optional">(optional)</span></label>
+                <input id="company" name="company" autocomplete="organization">
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+                <p class="field-error" hidden>Enter an email address like name@company.com.</p>
+              </div>
+              <div class="field">
+                <label for="phone">Phone <span class="optional">(optional)</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+            </div>
+            <div class="review" data-review aria-live="polite"></div>
+            <!-- Honeypot for bots; real visitors never see it -->
+            <div class="hp" aria-hidden="true"><label>Leave empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
+          </fieldset>
+
+          <div class="quote-done" data-done hidden tabindex="-1">
+            <h2 data-done-title>Quote request sent</h2>
+            <p data-done-body>Dispatch will reply by email.</p>
+            <button class="btn btn--blue" type="button" data-restart>Start another quote</button>
+          </div>
+
+          <div class="quote-nav" data-nav>
+            <button class="btn btn--line" type="button" data-back hidden>Back</button>
+            <button class="btn btn--orange" type="button" data-next>Continue</button>
+            <button class="btn btn--orange" type="submit" data-submit hidden>Send quote request</button>
+          </div>
+          <p class="quote-error" data-submit-error role="alert" hidden></p>
+        </div>
+      </form>
+
+      <aside class="quote-aside" aria-label="What happens next">
+        <h2>What happens next</h2>
+        <ol class="next-steps">
+          <li>Dispatch reviews your lane, dates and freight.</li>
+          <li>We email you a price and a pickup plan.</li>
+          <li>You confirm, and we put a truck on it.</li>
+        </ol>
+        <div class="quote-aside__contact">
+          <p class="quote-aside__status" data-open-status-long>Open daily from 7 am to 5 pm Pacific.</p>
+          <p>Prefer to talk it through?</p>
+          <a class="wa-card" href="https://wa.me/15102465453?text=Hi%20Bay%20Transport%2C%20I%27d%20like%20to%20ask%20about%20a%20shipment." target="_blank" rel="noopener">
+            <span class="wa-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></svg></span>
+            <span class="wa-card__text"><strong>Message us on WhatsApp</strong><span>(510) 246-5453</span></span>
+          </a>
+          <p><a href="tel:+15104756100">(510) 475-6100</a><br>
+             <a href="mailto:Dispatch@baytransportinc.com">Dispatch@baytransportinc.com</a></p>
+        </div>
+      </aside>
+    </section>
