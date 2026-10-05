@@ -45,6 +45,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
+  overflow-anchor: none;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 56px);
   -webkit-text-size-adjust: 100%;
@@ -1396,15 +1397,12 @@ h3, h4 {
   .site-header__actions .btn { display: none; }
   .brand .shield { width: 32px; }
   .brand__name { font-size: 1.12rem; }
-  /* Fill the screen above the bottom bar. --vh is measured once by JS for browsers without svh,
-     so the hero doesn't jump when the browser toolbar hides on scroll. */
+  /* Fill the screen above the bottom bar. JS locks --hero-h to a pixel height at load (and on
+     rotation only), so Chrome's address bar hiding and showing never resizes the hero. */
   .poster {
-    height: calc(var(--vh, 1vh) * 100 - 56px - env(safe-area-inset-bottom));
+    height: var(--hero-h, calc(100svh - 56px - env(safe-area-inset-bottom)));
     min-height: 520px;
     max-height: none;
-  }
-  @supports (height: 100svh) {
-    .poster { height: calc(100svh - 56px - env(safe-area-inset-bottom)); }
   }
   .poster__actions .btn--glass { display: none; }
   .poster__art img, .poster__art canvas { object-position: 60% 30%; }

@@ -16,12 +16,19 @@
     toastTimer = setTimeout(() => { toastEl.hidden = true; }, 2600);
   }
 
-  /* ---------- Stable viewport height on phones ----------
-     Measured once (and on rotation), not on every resize, so the hero doesn't jump when the
-     mobile browser's toolbar hides or shows while scrolling. CSS prefers svh when supported. */
-  const setVh = () => document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-  setVh();
-  window.addEventListener("orientationchange", () => setTimeout(setVh, 250));
+  /* ---------- Stable hero height on phones ----------
+     Mobile browsers resize the viewport whenever their address bar hides or shows. The hero is
+     locked to the height measured at load, and only re-measured when the width changes (rotation). */
+  const lockHero = () => {
+    const bar = $(".mobile-bar");
+    const barH = bar && getComputedStyle(bar).display !== "none" ? bar.offsetHeight : 0;
+    document.documentElement.style.setProperty("--hero-h", `${window.innerHeight - barH}px`);
+  };
+  let lockedWidth = window.innerWidth;
+  lockHero();
+  window.addEventListener("resize", () => {
+    if (window.innerWidth !== lockedWidth) { lockedWidth = window.innerWidth; lockHero(); }
+  });
 
   /* ---------- Header: solid once the hero scrolls away ---------- */
   const header = $("[data-header]");
