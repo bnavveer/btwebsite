@@ -11,7 +11,9 @@ cat > dist/_headers <<'HEADERS'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-/assets/*
+/assets/img/*
+  Cache-Control: public, max-age=604800
+/assets/docs/*
   Cache-Control: public, max-age=604800
 /assets/css/*
   Cache-Control: public, max-age=31536000, immutable
