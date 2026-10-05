@@ -16,6 +16,13 @@
     toastTimer = setTimeout(() => { toastEl.hidden = true; }, 2600);
   }
 
+  /* ---------- Stable viewport height on phones ----------
+     Measured once (and on rotation), not on every resize, so the hero doesn't jump when the
+     mobile browser's toolbar hides or shows while scrolling. CSS prefers svh when supported. */
+  const setVh = () => document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
+  setVh();
+  window.addEventListener("orientationchange", () => setTimeout(setVh, 250));
+
   /* ---------- Header: solid once the hero scrolls away ---------- */
   const header = $("[data-header]");
   const onScroll = () => {
